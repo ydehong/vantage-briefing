@@ -1,0 +1,28 @@
+name: Vantage Daily Briefing
+
+on:
+  schedule:
+    - cron: '30 0 * * 1-5'   # 8:30am SGT (UTC+8) on weekdays = 00:30 UTC
+    - cron: '30 0 * * 6'     # 8:30am SGT Saturday (weekly portfolio check)
+  workflow_dispatch:           # Allow manual trigger from GitHub UI anytime
+
+jobs:
+  daily-briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run daily briefing
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python briefing.py
