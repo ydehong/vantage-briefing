@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vantage">
+<meta name="theme-color" content="#080810">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23080810'/><text y='.85em' font-size='72' x='12'>📊</text></svg>">
+<title>Vantage Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080810; --bg2:#0f0f1a; --bg3:#161625; --bg4:#1e1e2e;
+  --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.11);
+  --text:#dde1f0; --muted:#5a5a75; --faint:#2e2e42;
+  --lime:#b8f040; --lime2:rgba(184,240,64,0.08);
+  --teal:#2dd4bf; --blue:#60a5fa; --amber:#fbbf24;
+  --red:#f87171; --purple:#a78bfa; --green:#4ade80;
+  --r:10px; --r2:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;font-size:13px;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ── Shell ── */
+.shell{display:grid;grid-template-columns:200px 1fr;flex:1;min-height:0;}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow-y:auto;}
+.main{overflow-y:auto;padding:28px 32px;}
+
+/* ── Sidebar ── */
+.logo{padding:22px 18px 18px;border-bottom:1px solid var(--border);}
+.logo-name{font-family:'Instrument Serif',serif;font-size:21px;color:var(--lime);letter-spacing:-0.3px;}
+.logo-tag{font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:1px;}
+.nav-sec{padding:14px 10px 4px;}
+.nav-sec-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:0 8px 6px;}
+.ni{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;cursor:pointer;color:var(--muted);font-size:12px;width:100%;background:none;border:none;font-family:'Geist',sans-serif;text-align:left;transition:all .15s;}
+.ni:hover{background:var(--bg3);color:var(--text);}
+.ni.active{background:rgba(184,240,64,.09);color:var(--lime);}
+.ni svg{flex-shrink:0;opacity:.7;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;margin-left:auto;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.sidebar-footer{margin-top:auto;padding:14px;border-top:1px solid var(--border);}
+.status-row{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);margin-bottom:7px;}
+.status-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.dot-green{background:var(--green);}
+.dot-amber{background:var(--amber);}
+.dot-red{background:var(--red);}
+.dot-gray{background:var(--muted);}
+.version-tag{font-size:10px;color:var(--muted);font-family:'Geist Mono',monospace;}
+
+/* ── Page structure ── */
+.page{display:none;animation:fadeIn .2s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+.ph{margin-bottom:24px;}
+.ph-title{font-family:'Instrument Serif',serif;font-size:26px;color:var(--text);margin-bottom:3px;}
+.ph-sub{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── Cards ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:18px 20px;margin-bottom:14px;}
+.card-hd{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;font-weight:500;}
+.card.accent{border-color:rgba(184,240,64,.2);background:rgba(184,240,64,.03);}
+
+/* ── Grid ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+
+/* ── Stat tiles ── */
+.stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;}
+.stat-val{font-size:22px;font-family:'Instrument Serif',serif;color:var(--text);margin-bottom:2px;}
+.stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* ── Forms ── */
+label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;}
+input[type=text],input[type=password],select,textarea{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:'Geist',sans-serif;font-size:12px;padding:8px 11px;width:100%;outline:none;transition:border .15s;}
+input:focus,select:focus,textarea:focus{border-color:var(--lime);}
+textarea{resize:vertical;min-height:70px;}
+.fg{margin-bottom:12px;}
+.row{display:flex;gap:10px;align-items:center;}
+.flex1{flex:1;}
+
+/* ── Buttons ── */
+.btn{font-family:'Geist',sans-serif;font-size:12px;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s;font-weight:500;}
+.btn:disabled{opacity:.35;cursor:not-allowed;}
+.btn-lime{background:var(--lime);color:#05050e;}
+.btn-lime:hover:not(:disabled){opacity:.88;}
+.btn-ghost{background:var(--bg3);color:var(--text);border:1px solid var(--border2);}
+.btn-ghost:hover:not(:disabled){border-color:var(--border2);background:var(--bg4);}
+.btn-danger{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);}
+
+/* ── Result box ── */
+.result{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px;font-family:'Geist Mono',monospace;font-size:11.5px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-word;min-height:80px;}
+.result.empty{color:var(--muted);font-style:italic;}
+.result.streaming{border-color:rgba(184,240,64,.3);}
+
+/* ── Badge ── */
+.badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500;white-space:nowrap;}
+.b-lime{background:rgba(184,240,64,.1);color:var(--lime);}
+.b-blue{background:rgba(96,165,250,.1);color:var(--blue);}
+.b-amber{background:rgba(251,191,36,.1);color:var(--amber);}
+.b-red{background:rgba(248,113,113,.1);color:var(--red);}
+.b-teal{background:rgba(45,212,191,.1);color:var(--teal);}
+.b-purple{background:rgba(167,139,250,.1);color:var(--purple);}
+.b-muted{background:var(--bg4);color:var(--muted);}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:3px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:3px;width:fit-content;margin-bottom:16px;}
+.tab{padding:5px 14px;border-radius:7px;font-size:12px;cursor:pointer;color:var(--muted);border:none;background:none;font-family:'Geist',sans-serif;transition:all .15s;}
+.tab.active{background:var(--bg2);color:var(--text);border:1px solid var(--border2);}
+
+/* ── Intelligence feed ── */
+.intel-item{padding:13px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;}
+.intel-item:last-child{border-bottom:none;}
+.intel-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.intel-body{flex:1;}
+.intel-title{font-size:12px;color:var(--text);margin-bottom:3px;font-weight:500;}
+.intel-text{font-size:11px;color:var(--muted);line-height:1.6;}
+.intel-meta{font-size:10px;color:var(--muted);margin-top:4px;font-family:'Geist Mono',monospace;}
+.intel-badge{margin-left:auto;flex-shrink:0;}
+
+/* ── Timeline / progress ── */
+.progress-bar{height:3px;background:var(--bg4);border-radius:99px;overflow:hidden;margin-top:6px;}
+.progress-fill{height:100%;background:var(--lime);border-radius:99px;transition:width .5s;}
+
+/* ── Upload ── */
+.upload-zone{border:1px dashed var(--border2);border-radius:var(--r);padding:32px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg3);}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--lime);background:rgba(184,240,64,.03);}
+.upload-text{font-size:12px;color:var(--muted);margin-top:8px;}
+.preview-img{max-width:100%;border-radius:8px;margin-top:12px;border:1px solid var(--border);}
+
+/* ── Notification log ── */
+.notif-item{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);gap:12px;}
+.notif-item:last-child{border-bottom:none;}
+.notif-title{font-size:12px;color:var(--text);margin-bottom:2px;}
+.notif-body{font-size:11px;color:var(--muted);line-height:1.5;}
+.notif-time{font-size:10px;font-family:'Geist Mono',monospace;color:var(--muted);flex-shrink:0;}
+
+/* ── Update check ── */
+.update-box{border:1px solid rgba(251,191,36,.2);background:rgba(251,191,36,.04);border-radius:var(--r);padding:14px 16px;display:flex;align-items:flex-start;gap:12px;}
+.update-icon{font-size:18px;flex-shrink:0;}
+.update-text{font-size:12px;color:var(--text);line-height:1.6;}
+.update-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+
+/* ── Divider ── */
+.div{height:1px;background:var(--border);margin:18px 0;}
+
+/* ── Spin ── */
+.spin{display:inline-block;width:12px;height:12px;border:1.5px solid rgba(255,255,255,.15);border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── Code block ── */
+.code{background:var(--bg4);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;font-family:'Geist Mono',monospace;font-size:11px;line-height:1.7;color:var(--text);white-space:pre-wrap;word-break:break-word;overflow-x:auto;}
+.code-label{font-size:10px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;}
+
+/* ── Step ── */
+.step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.step:last-child{border-bottom:none;}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--lime);color:#05050e;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-body{flex:1;}
+.step-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.step-desc{font-size:11px;color:var(--muted);line-height:1.6;}
+
+/* ── Cadence pills ── */
+.cad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.cad-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;}
+.cad-freq{font-family:'Instrument Serif',serif;font-size:18px;color:var(--lime);margin-bottom:2px;}
+.cad-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:5px;}
+.cad-desc{font-size:11px;color:var(--muted);line-height:1.55;}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
+
+.out-tabs{display:flex;gap:3px;background:var(--bg4);border:1px solid var(--border);border-radius:9px;padding:3px;width:fit-content;margin-bottom:10px;}
+.out-tab{padding:4px 12px;border-radius:7px;font-size:11px;cursor:pointer;color:var(--muted);border:none;background:none;font-family:'Geist',sans-serif;transition:all .15s;}
+.out-tab.active{background:var(--bg2);color:var(--text);border:1px solid var(--border2);}
+.out-pane{display:none;}.out-pane.active{display:block;}
+.action-table{width:100%;border-collapse:collapse;font-size:12px;}
+.action-table th{text-align:left;padding:8px 10px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);font-weight:500;background:var(--bg4);}
+.action-table td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.action-table tr:last-child td{border-bottom:none;}
+.action-table tr:hover td{background:var(--bg4);}
+.act-buy{color:#4ade80;font-weight:500;}
+.act-sell{color:#f87171;font-weight:500;}
+.act-hold{color:#fbbf24;font-weight:500;}
+.act-watch{color:#60a5fa;font-weight:500;}
+.act-trim{color:#fb923c;font-weight:500;}
+.pill-action{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500;display:inline-block;}
+.pa-buy{background:rgba(74,222,128,.12);color:#4ade80;}
+.pa-sell{background:rgba(248,113,113,.12);color:#f87171;}
+.pa-hold{background:rgba(251,191,36,.12);color:#fbbf24;}
+.pa-watch{background:rgba(96,165,250,.12);color:#60a5fa;}
+.pa-trim{background:rgba(251,146,60,.12);color:#fb923c;}
+.signal-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;}
+.signal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.signal-title{font-size:13px;font-weight:500;color:var(--text);}
+.signal-action{font-size:11px;font-weight:500;}
+.signal-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;}
+.signal-kv{display:flex;flex-direction:column;gap:1px;}
+.signal-k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.signal-v{font-size:12px;color:var(--text);}
+.empty-table{padding:20px;text-align:center;color:var(--muted);font-size:12px;}
+
+/* ── Mobile / PWA ── */
+.mobile-header{display:none;padding:12px 16px 8px;padding-top:max(12px,env(safe-area-inset-top));background:var(--bg2);border-bottom:1px solid var(--border);align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.mobile-logo{font-family:'Instrument Serif',serif;font-size:18px;color:var(--lime);}
+.mobile-page-title{font-size:13px;color:var(--text);font-weight:500;}
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));z-index:100;justify-content:space-around;align-items:flex-end;}
+.mobile-nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 6px;cursor:pointer;border-radius:8px;border:none;background:none;font-family:'Geist',sans-serif;color:var(--muted);font-size:10px;min-width:50px;transition:color .15s;}
+.mobile-nav-item.active{color:var(--lime);}
+@media(max-width:768px){
+  .shell{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .main{padding:0;padding-bottom:80px;}
+  .page{padding:14px 16px;}
+  .ph-title{font-size:20px;}
+  .g2{grid-template-columns:1fr;}
+  .g3{grid-template-columns:1fr;}
+  .g4{grid-template-columns:1fr 1fr;}
+  .cad-grid{grid-template-columns:1fr;}
+  .signal-row{flex-direction:column;gap:8px;}
+  .out-tabs{flex-wrap:wrap;}
+  .action-table{font-size:11px;}
+  .action-table th,.action-table td{padding:6px 7px;}
+  .result{font-size:11px;}
+  .mobile-header{display:flex;}
+  .mobile-nav{display:flex;}
+  .tabs{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="mobile-header" id="mobileHeader">
+  <span class="mobile-logo">Vantage</span>
+  <span class="mobile-page-title" id="mobilePageTitle">Stock Scanner</span>
+</div>
+<div class="shell">
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-name">Vantage Pro</div>
+    <div class="logo-tag">Investment Intelligence</div>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-sec-label">Research</div>
+    <button class="ni active" onclick="nav('scan',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Stock Scanner
+    </button>
+    <button class="ni" onclick="nav('portfolio',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18"/></svg>
+      Portfolio Advisor
+    </button>
+    <button class="ni" onclick="nav('intel',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Daily Briefing
+      <span class="live-dot"></span>
+    </button>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-sec-label">Alerts</div>
+    <button class="ni" onclick="nav('alerts',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Alert Setup
+    </button>
+    <button class="ni" onclick="nav('cadence',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Cadence Runner
+    </button>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-sec-label">System</div>
+    <button class="ni" onclick="nav('updates',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      Updates
+    </button>
+    <button class="ni" onclick="nav('learn',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Self-Learning
+    </button>
+    <button class="ni" onclick="nav('settings',this)">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      Settings
+    </button>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="status-row"><span class="status-dot dot-green"></span><span id="sb-api-status">API connected</span></div>
+    <div class="status-row"><span class="status-dot" id="sb-intel-dot" style="background:var(--muted)"></span><span id="sb-intel-status">Intel: idle</span></div>
+    <div class="version-tag" id="version-tag">v1.0.0 · checking…</div>
+  </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main">
+
+<!-- ══ SCAN ══ -->
+<div class="page active" id="page-scan">
+  <div class="ph">
+    <div class="ph-title">Stock Scanner</div>
+    <div class="ph-sub">Shortlist undervalued stocks with entry and exit points · Value · US & SGX/SEA</div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd">Your profile</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:var(--muted);font-size:12px;">Style</span><span class="badge b-lime">Value · Margin of Safety</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:var(--muted);font-size:12px;">Markets</span><span style="font-size:12px;">US · SGX/SEA</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:var(--muted);font-size:12px;">Long-term</span><span class="badge b-blue">2–5 years</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:var(--muted);font-size:12px;">Short-term</span><span class="badge b-purple">&lt;1–3 months</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd">Scan options</div>
+      <div class="fg"><label>Scan type</label>
+        <select id="scanType">
+          <option value="combined">Combined (long + short term)</option>
+          <option value="longterm">Long-term value only</option>
+          <option value="shortterm">Short-term tactical only</option>
+        </select>
+      </div>
+      <div class="fg"><label>Sector focus (optional)</label>
+        <input type="text" id="sectorFocus" placeholder="e.g. Financials, REITs, Tech…">
+      </div>
+    </div>
+  </div>
+  <div class="fg"><label>Additional context</label>
+    <input type="text" id="extraCtx" placeholder="e.g. avoid China exposure, interested in dividend compounders, SGD capital…">
+  </div>
+  <div class="row" style="margin-bottom:18px;">
+    <button class="btn btn-lime" id="scanBtn" onclick="runScan()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Run scan
+    </button>
+    <span id="scanStatus" style="font-size:11px;color:var(--muted);"></span>
+  </div>
+  <div class="card-hd">Analysis output</div>
+  <div class="out-tabs" id="scanOutTabs" style="display:none;">
+    <button class="out-tab active" onclick="switchOut('scan','raw',this)">Full text</button>
+    <button class="out-tab" onclick="switchOut('scan','table',this)">Action table</button>
+  </div>
+  <div id="scanOutRaw" class="out-pane active">
+    <div class="result empty" id="scanResult">Configure above and run a scan. Results stream here.</div>
+  </div>
+  <div id="scanOutTable" class="out-pane">
+    <div id="scanTable"><div class="empty-table">Run a scan first to generate the action table.</div></div>
+  </div>
+</div>
+
+<!-- ══ PORTFOLIO ══ -->
+<div class="page" id="page-portfolio">
+  <div class="ph">
+    <div class="ph-title">Portfolio Advisor</div>
+    <div class="ph-sub">Upload a brokerage screenshot or enter positions manually for exit, hold, and stop advice</div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchPTab('screenshot',this)">Screenshot</button>
+    <button class="tab" onclick="switchPTab('manual',this)">Manual entry</button>
+  </div>
+  <div id="pt-ss">
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fi').click()" ondragover="dov(event)" ondragleave="dlv()" ondrop="dfl(event)">
+      <svg width="28" height="28" fill="none" stroke="var(--muted)" stroke-width="1.2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <div class="upload-text"><strong style="color:var(--lime);">Click or drag</strong> screenshots here — multiple files supported</div>
+      <div class="upload-text" style="font-size:10px;margin-top:3px;">IBKR · Tiger · Moomoo · DBS Vickers · Syfe · any PNG/JPG · up to 8 images</div>
+    </div>
+    <input type="file" id="fi" accept="image/*" multiple style="display:none" onchange="handleFiles(event)">
+    <div id="imgPreviews" style="display:none;margin-top:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:11px;color:var(--muted);" id="imgCount">0 screenshots loaded</span>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="clearImages()">Clear all</button>
+      </div>
+      <div id="imgGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;"></div>
+    </div>
+  </div>
+  <div id="pt-man" style="display:none;">
+    <div class="card">
+      <div class="card-hd">Positions</div>
+      <div style="display:grid;grid-template-columns:130px 1fr 1fr 80px 28px;gap:6px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--border);">
+        <span style="font-size:10px;color:var(--muted);">Ticker</span>
+        <span style="font-size:10px;color:var(--muted);">Entry price</span>
+        <span style="font-size:10px;color:var(--muted);">Current price</span>
+        <span style="font-size:10px;color:var(--muted);">Weight %</span>
+        <span></span>
+      </div>
+      <div id="manRows"></div>
+      <button class="btn btn-ghost" style="font-size:11px;margin-top:10px;" onclick="addManRow()">+ Add position</button>
+    </div>
+  </div>
+  <div style="margin-top:14px;" class="g2">
+    <div class="fg"><label>Advice type</label>
+      <select id="portAdvice">
+        <option value="exit">Exit recommendations — when to sell</option>
+        <option value="hold">Hold vs trim — size optimisation</option>
+        <option value="full">Full review — exits, holds, and gaps</option>
+        <option value="stop">Stop-loss placement for each position</option>
+      </select>
+    </div>
+    <div class="fg"><label>Time horizon context</label>
+      <select id="portHorizon">
+        <option value="mixed">Mixed (long + short)</option>
+        <option value="lt">Long-term only</option>
+        <option value="st">Short-term only</option>
+      </select>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom:18px;">
+    <button class="btn btn-lime" id="portBtn" onclick="runPort()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+      Analyse portfolio
+    </button>
+    <span id="portStatus" style="font-size:11px;color:var(--muted);"></span>
+  </div>
+  <div class="card-hd">Portfolio advice</div>
+  <div class="out-tabs" id="portOutTabs" style="display:none;">
+    <button class="out-tab active" onclick="switchOut('port','raw',this)">Full text</button>
+    <button class="out-tab" onclick="switchOut('port','table',this)">Action table</button>
+  </div>
+  <div id="portOutRaw" class="out-pane active">
+    <div class="result empty" id="portResult">Upload screenshot or enter positions, then click Analyse.</div>
+  </div>
+  <div id="portOutTable" class="out-pane">
+    <div id="portTable"><div class="empty-table">Run a portfolio analysis first.</div></div>
+  </div>
+</div>
+
+<!-- ══ LIVE INTEL ══ -->
+<div class="page" id="page-intel">
+  <div class="ph">
+    <div class="ph-title">Daily Briefing</div>
+    <div class="ph-sub">Consolidated view of what to do today — portfolio actions, scan watchlist, and market signals</div>
+  </div>
+
+  <div class="g4">
+    <div class="stat"><div class="stat-val" id="intel-count">0</div><div class="stat-lbl">Signals today</div></div>
+    <div class="stat"><div class="stat-val" id="intel-last">—</div><div class="stat-lbl">Last refresh</div></div>
+    <div class="stat"><div class="stat-val" id="intel-port-count">—</div><div class="stat-lbl">Portfolio positions</div></div>
+    <div class="stat"><div class="stat-val" id="intel-scan-count">—</div><div class="stat-lbl">Watchlist stocks</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hd" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>Monitor settings</span>
+      <span id="intel-state-badge" class="badge b-muted">Stopped</span>
+    </div>
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="fg"><label>Refresh interval</label>
+        <select id="intelInterval">
+          <option value="3600000">Every 1 hour</option>
+          <option value="14400000">Every 4 hours</option>
+          <option value="28800000" selected>Every 8 hours</option>
+          <option value="86400000">Once daily (9am SGT)</option>
+        </select>
+      </div>
+      <div class="fg"><label>Intel depth</label>
+        <select id="intelFocus">
+          <option value="all" selected>Full briefing (portfolio + scan + macro)</option>
+          <option value="portfolio">Portfolio actions only</option>
+          <option value="macro">Macro + market signals only</option>
+          <option value="risk">Risk alerts only</option>
+        </select>
+      </div>
+    </div>
+    <div class="row" style="flex-wrap:wrap;gap:8px;">
+      <button class="btn btn-lime" id="intelStartBtn" onclick="toggleIntel()">Start monitoring</button>
+      <button class="btn btn-ghost" onclick="runIntelNow()">Run briefing now</button>
+      <span id="intelStatus" style="font-size:11px;color:var(--muted);"></span>
+    </div>
+  </div>
+
+  <div id="intelDataStatus" style="font-size:11px;color:var(--muted);margin-bottom:12px;padding:8px 12px;background:var(--bg3);border-radius:8px;display:none;"></div>
+
+  <div class="card-hd" style="margin-top:4px;">Today's briefing</div>
+  <div class="out-tabs" id="intelOutTabs" style="display:none;">
+    <button class="out-tab active" onclick="switchOut('intel','raw',this)">Full report</button>
+    <button class="out-tab" onclick="switchOut('intel','table',this)">Action cards</button>
+  </div>
+  <div id="intelOutRaw" class="out-pane active">
+    <div class="card" style="padding:0 20px;">
+      <div id="intelFeed"><div style="padding:20px 0;color:var(--muted);font-size:12px;text-align:center;">Run briefing to generate today's consolidated action plan.</div></div>
+    </div>
+  </div>
+  <div id="intelOutTable" class="out-pane">
+    <div id="intelCards"><div class="empty-table">Run briefing first to see action cards.</div></div>
+  </div>
+</div>
+
+<!-- ══ ALERTS ══ -->
+<div class="page" id="page-alerts">
+  <div class="ph">
+    <div class="ph-title">Alert Setup</div>
+    <div class="ph-sub">Push notifications to Telegram or iPhone — choose your preferred method</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchAlertTab('telegram',this)">Telegram bot</button>
+    <button class="tab" onclick="switchAlertTab('ios',this)">iPhone (iOS Shortcuts)</button>
+    <button class="tab" onclick="switchAlertTab('make',this)">Make.com automation</button>
+  </div>
+
+  <!-- Telegram -->
+  <div id="at-telegram">
+    <div class="card accent">
+      <div class="card-hd">⚡ Recommended — Telegram bot (free, instant)</div>
+      <div class="g2" style="margin-bottom:14px;">
+        <div class="fg"><label>Telegram Bot Token</label>
+          <input type="password" id="tgToken" placeholder="123456789:AAF…" oninput="saveTg()">
+        </div>
+        <div class="fg"><label>Your Chat ID</label>
+          <input type="text" id="tgChatId" placeholder="e.g. 123456789" oninput="saveTg()">
+        </div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <button class="btn btn-ghost" style="font-size:11px;" onclick="testTelegram()">Send test message</button>
+        <span id="tgTestStatus" style="font-size:11px;color:var(--muted);margin-left:8px;"></span>
+      </div>
+      <div class="div" style="margin:10px 0;"></div>
+      <div class="card-hd" style="margin-bottom:12px;">Setup guide</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><div class="step-title">Create a bot</div><div class="step-desc">Open Telegram → search <strong>@BotFather</strong> → send <code>/newbot</code> → follow prompts → copy the token it gives you.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><div class="step-title">Get your Chat ID</div><div class="step-desc">Search <strong>@userinfobot</strong> in Telegram → start it → it replies with your numeric Chat ID. Paste it above.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><div class="step-title">Start your bot</div><div class="step-desc">Search for your bot's username in Telegram → tap Start. This is required before it can message you.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><div class="step-title">Test and activate</div><div class="step-desc">Click "Send test message" above. Then go to Live Intelligence → Start monitoring. Alerts will fire automatically with each intelligence refresh.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- iOS -->
+  <div id="at-ios" style="display:none;">
+    <div class="card">
+      <div class="card-hd">iOS Shortcuts — runs on a schedule, no server needed</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><div class="step-title">Open Shortcuts app on your iPhone</div><div class="step-desc">Tap + (new shortcut) → tap Add Action → search for "Get contents of URL".</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><div class="step-title">Configure the API call</div>
+          <div class="step-desc">Set URL to <code>http://localhost:3131</code>, Method to POST, Headers and Body as shown below.</div>
+          <div class="code-label" style="margin-top:10px;">Headers</div>
+          <div class="code">x-api-key: YOUR_ANTHROPIC_KEY
+Content-Type: application/json
+anthropic-version: 2023-06-01</div>
+          <div class="code-label" style="margin-top:8px;">Body (JSON)</div>
+          <div class="code" id="iosBody">{
+  "model": "claude-sonnet-4-6",
+  "max_tokens": 400,
+  "messages": [{
+    "role": "user",
+    "content": "You are a value investor's market monitor. In under 300 words give me: (1) one macro signal relevant to US and Singapore value stocks today, (2) one actionable entry or exit trigger for a value investor, (3) one risk to watch this week. Be direct, no preamble."
+  }]
+}</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><div class="step-title">Parse the response</div><div class="step-desc">Add action: "Get Dictionary Value" → key: <code>content</code> → then "Get Item from List" → first item → "Get Dictionary Value" → key: <code>text</code>.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><div class="step-title">Send a notification</div><div class="step-desc">Add action: "Show Notification" → title: "Vantage Intel" → body: the text from step 3.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body"><div class="step-title">Schedule it</div><div class="step-desc">Go to the Automation tab → + → Time of Day → set to 8:30am daily (or Mon/Wed/Fri for less noise) → select your shortcut → turn off "Ask Before Running".</div></div>
+      </div>
+    </div>
+    <div style="margin-top:8px;">
+      <button class="btn btn-lime" onclick="copyIosShortcut()">Copy shortcut JSON body</button>
+      <span id="iosStatus" style="font-size:11px;color:var(--muted);margin-left:8px;"></span>
+    </div>
+  </div>
+
+  <!-- Make.com -->
+  <div id="at-make" style="display:none;">
+    <div class="card">
+      <div class="card-hd">Make.com — cloud scheduler, works even when browser is closed</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><div class="step-title">Create a free Make.com account</div><div class="step-desc">Go to make.com → sign up free (1,000 operations/month included) → create a new Scenario.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><div class="step-title">Add a Schedule trigger</div><div class="step-desc">First module: Schedule → set to "Every day at 08:30" (SGT = UTC+8, so set UTC 00:30).</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><div class="step-title">Add HTTP module → Make a request</div>
+          <div class="step-desc">URL: <code>http://localhost:3131</code> · Method: POST</div>
+          <div class="code-label" style="margin-top:8px;">Headers to add</div>
+          <div class="code">x-api-key → YOUR_ANTHROPIC_KEY
+Content-Type → application/json
+anthropic-version → 2023-06-01</div>
+          <div class="code-label" style="margin-top:8px;">Body (raw JSON)</div>
+          <div class="code">{"model":"claude-sonnet-4-6","max_tokens":400,"messages":[{"role":"user","content":"Value investor market monitor. US and SGX/SEA focus. Under 250 words: (1) one macro signal today, (2) one entry or exit trigger for value stocks, (3) one risk to watch. Direct, no preamble."}]}</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><div class="step-title">Parse + send to Telegram</div><div class="step-desc">Add Telegram Bot module → "Send a Message" → Map: Chat ID (your ID) → Text: <code>{{3.content[].text}}</code> (adjust path from HTTP response).</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body"><div class="step-title">Activate the scenario</div><div class="step-desc">Toggle the scenario ON. It will now call the Anthropic API every morning and push the summary to your Telegram.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification log -->
+  <div style="margin-top:20px;">
+    <div class="card-hd">Alert log</div>
+    <div class="card" style="padding:0 20px;">
+      <div id="alertLog"><div style="padding:20px 0;color:var(--muted);font-size:12px;text-align:center;">No alerts sent yet.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CADENCE ══ -->
+<div class="page" id="page-cadence">
+  <div class="ph">
+    <div class="ph-title">Cadence Runner</div>
+    <div class="ph-sub">Structured refresh prompts at the right frequency for each sleeve</div>
+  </div>
+  <div class="cad-grid">
+    <div class="cad-card"><div class="cad-freq">Weekly</div><div class="cad-name">Short-term sleeve</div><div class="cad-desc">Check stops, review catalysts, close time-stopped trades. Daily is noise.</div></div>
+    <div class="cad-card"><div class="cad-freq">Monthly</div><div class="cad-name">Long-term sleeve</div><div class="cad-desc">Thesis integrity, valuation update. If nothing changed in the business, nothing changes in the position.</div></div>
+    <div class="cad-card"><div class="cad-freq">Weekly</div><div class="cad-name">Portfolio check</div><div class="cad-desc">Sizing drift, stop levels, kill-switch signals.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-hd">Run a cadence prompt</div>
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="fg"><label>Cadence type</label>
+        <select id="cadType">
+          <option value="wst">Weekly — short-term sleeve review</option>
+          <option value="wport">Weekly — portfolio stop check</option>
+          <option value="mlt">Monthly — long-term thesis review</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tickers to review (comma-separated)</label>
+        <input type="text" id="cadTickers" placeholder="e.g. MSFT, DBS.SI, OCBC.SI, META">
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-lime" id="cadBtn" onclick="runCadence()">Run prompt</button>
+      <span id="cadStatus" style="font-size:11px;color:var(--muted);margin-left:6px;"></span>
+    </div>
+  </div>
+  <div class="div"></div>
+  <div class="card-hd">Output</div>
+  <div class="result empty" id="cadResult">Select cadence type and run.</div>
+</div>
+
+<!-- ══ UPDATES ══ -->
+<div class="page" id="page-updates">
+  <div class="ph">
+    <div class="ph-title">System Updates</div>
+    <div class="ph-sub">Monitors AI model upgrades, prompt strategy improvements, and market condition shifts that may affect analysis quality</div>
+  </div>
+  <div id="updateBox"></div>
+  <div class="card">
+    <div class="card-hd">What triggers an update alert</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <span class="badge b-lime" style="flex-shrink:0;margin-top:1px;">AI Model</span>
+        <span style="font-size:12px;color:var(--muted);line-height:1.6;">New Claude model release (claude-opus-*, claude-sonnet-*) — checked against latest known version. New models often produce substantially better financial analysis.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <span class="badge b-amber" style="flex-shrink:0;margin-top:1px;">Macro Regime</span>
+        <span style="font-size:12px;color:var(--muted);line-height:1.6;">Rate cycle transitions, recession signals, or major central bank pivot — prompts your long-term screening criteria to be re-run with updated macro context.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <span class="badge b-blue" style="flex-shrink:0;margin-top:1px;">Prompt Strategy</span>
+        <span style="font-size:12px;color:var(--muted);line-height:1.6;">Quarterly self-evaluation — the app asks Claude to critique its own analysis framework and flag any improvements. Results are logged here.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <span class="badge b-red" style="flex-shrink:0;margin-top:1px;">SGX/API</span>
+        <span style="font-size:12px;color:var(--muted);line-height:1.6;">Anthropic API breaking changes or rate limit updates that may affect app functionality.</span>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:14px;">
+    <button class="btn btn-lime" onclick="checkUpdates(true)">Check for updates now</button>
+    <span id="updateStatus" style="font-size:11px;color:var(--muted);margin-left:8px;"></span>
+  </div>
+  <div class="div"></div>
+  <div class="card-hd">Self-evaluation — quarterly prompt audit</div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Ask Claude to evaluate the quality of this app's prompts and suggest improvements. Run quarterly or after a major model upgrade.</div>
+  <button class="btn btn-ghost" id="auditBtn" onclick="runPromptAudit()">Run prompt audit</button>
+  <div class="result empty" id="auditResult" style="margin-top:12px;"></div>
+</div>
+
+<!-- ══ SETTINGS ══ -->
+<div class="page" id="page-settings">
+  <div class="ph">
+    <div class="ph-title">Settings</div>
+    <div class="ph-sub">API key, investor profile, and preferences</div>
+  </div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hd">Anthropic API key</div>
+    <div class="row" style="margin-bottom:6px;">
+      <input type="password" id="apiKeyInput" class="flex1" placeholder="sk-ant-…" oninput="saveKey()">
+      <button class="btn btn-ghost" style="font-size:11px;flex-shrink:0;" onclick="testApi()">Test</button>
+    </div>
+    <div id="apiStatus" style="font-size:11px;color:var(--muted);"></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6;">Key stored locally in browser only. Never transmitted except directly to api.anthropic.com. Get one at <strong>console.anthropic.com → API Keys</strong>.</div>
+  </div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hd">GitHub auto-sync <span style="font-size:10px;color:var(--muted);font-weight:400;margin-left:6px;">keeps briefings personalised across devices automatically</span></div>
+    <div class="g2" style="margin-bottom:8px;">
+      <div class="fg"><label>GitHub Personal Access Token</label>
+        <input type="password" id="ghToken" placeholder="github_pat_..." oninput="saveGhSettings()">
+      </div>
+      <div class="fg"><label>Repository (owner/repo)</label>
+        <input type="text" id="ghRepo" placeholder="yourusername/vantage-briefing" oninput="saveGhSettings()">
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;padding:8px 10px;background:var(--bg3);border-radius:8px;">
+      When set, every portfolio analysis and scanner run automatically pushes <strong style="color:var(--text);">portfolio_context.json</strong> to your repo — works from iPhone and Mac. GitHub Actions reads it fresh each morning.<br><br>
+      Get a token: github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → select <strong style="color:var(--text);">repo</strong> scope only.
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+      <button class="btn btn-lime" style="font-size:12px;" onclick="syncToGitHub()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 17 21 12 16 7"/><path d="M21 12H9"/><path d="M9 18H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></svg>
+        Sync to GitHub
+      </button>
+      <button class="btn btn-ghost" style="font-size:12px;color:var(--blue);" onclick="loadFromGitHub()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="8 7 3 12 8 17"/><path d="M3 12h12"/><path d="M15 6h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4"/></svg>
+        Load from GitHub
+      </button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-ghost" style="font-size:11px;" onclick="testGhSync()">Test connection</button>
+      <span id="ghSyncStatus" style="font-size:11px;color:var(--muted);flex:1;"></span>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;" id="ghLastSync"></div>
+  </div>
+  <div class="card">
+    <div class="card-hd">Investor profile</div>
+    <div class="g2">
+      <div class="fg"><label>Risk note (informs all prompts)</label>
+        <input type="text" id="riskNote" placeholder="e.g. conservative, no leverage, max 10% per stock" oninput="savePrefs()">
+      </div>
+      <div class="fg"><label>Excluded sectors/countries</label>
+        <input type="text" id="excludes" placeholder="e.g. no China ADRs, no crypto, no biotech" oninput="savePrefs()">
+      </div>
+    </div>
+    <div class="fg"><label>Watchlist tickers (used in cadence runs)</label>
+      <input type="text" id="watchlist" placeholder="e.g. DBS.SI, OCBC.SI, UOB.SI, MSFT, BRK.B" oninput="savePrefs()">
+    </div>
+  </div>
+</div>
+
+<!-- ══ SELF-LEARNING ══ -->
+<div class="page" id="page-learn">
+  <div class="ph">
+    <div class="ph-title">Self-Learning</div>
+    <div class="ph-sub">Track predictions vs reality · score accuracy · generate prompt improvements · anti-overfitting by design</div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;border-color:rgba(184,240,64,.15);">
+    <div class="card-hd">How this works</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+      <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;">
+        <div style="font-size:18px;font-family:'Instrument Serif',serif;color:var(--lime);margin-bottom:3px;">1</div>
+        <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;">Predictions logged</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">Every scan and portfolio analysis auto-saves a timestamped prediction record</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;">
+        <div style="font-size:18px;font-family:'Instrument Serif',serif;color:var(--lime);margin-bottom:3px;">2</div>
+        <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;">You enter outcomes</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">After 2–4 weeks, enter the actual price and what triggered the move</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;">
+        <div style="font-size:18px;font-family:'Instrument Serif',serif;color:var(--lime);margin-bottom:3px;">3</div>
+        <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;">App scores accuracy</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">Direction, magnitude, trigger — scored separately to avoid overfitting to one metric</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;">
+        <div style="font-size:18px;font-family:'Instrument Serif',serif;color:var(--lime);margin-bottom:3px;">4</div>
+        <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;">Prompts updated</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.5;">Reflection module generates specific prompt adjustments based on failure patterns — not generic advice</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-bottom:16px;">
+    <button class="tab active" onclick="switchLearnTab('log',this)">Prediction log</button>
+    <button class="tab" onclick="switchLearnTab('score',this)">Scorecard</button>
+    <button class="tab" onclick="switchLearnTab('reflect',this)">Reflection & learning</button>
+  </div>
+
+  <!-- Prediction log tab -->
+  <div id="lt-log">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="card-hd" style="margin:0;">Open predictions (awaiting outcome)</div>
+      <button class="btn btn-ghost" style="font-size:11px;" onclick="logManualPrediction()">+ Log prediction manually</button>
+    </div>
+    <div id="learn-open-list"></div>
+    <div class="card-hd" style="margin-top:18px;margin-bottom:10px;">Closed predictions (outcome entered)</div>
+    <div id="learn-closed-list"></div>
+  </div>
+
+  <!-- Scorecard tab -->
+  <div id="lt-score" style="display:none;">
+    <div class="g4" id="learn-stats-grid">
+      <div class="stat"><div class="stat-val" id="ls-total">0</div><div class="stat-lbl">Total predictions</div></div>
+      <div class="stat"><div class="stat-val" id="ls-dir">—</div><div class="stat-lbl">Direction accuracy</div></div>
+      <div class="stat"><div class="stat-val" id="ls-trigger">—</div><div class="stat-lbl">Trigger accuracy</div></div>
+      <div class="stat"><div class="stat-val" id="ls-streak">—</div><div class="stat-lbl">Current streak</div></div>
+    </div>
+    <div id="learn-scorecard"></div>
+  </div>
+
+  <!-- Reflection tab -->
+  <div id="lt-reflect" style="display:none;">
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-hd">Reflection settings</div>
+      <div class="fg"><label>Minimum closed predictions before reflection (anti-overfitting guard)</label>
+        <select id="reflectMinPreds">
+          <option value="5">5 predictions (minimum)</option>
+          <option value="10" selected>10 predictions (recommended)</option>
+          <option value="20">20 predictions (conservative)</option>
+        </select>
+      </div>
+      <div class="fg"><label>Rolling window for reflection</label>
+        <select id="reflectWindow">
+          <option value="10">Last 10 predictions only</option>
+          <option value="20" selected>Last 20 predictions</option>
+          <option value="0">All predictions</option>
+        </select>
+      </div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px;padding:8px 10px;background:var(--bg3);border-radius:8px;">
+        ⚠ Walk-forward design: reflection only uses closed predictions in sequence — it never retrofits findings to earlier predictions. This prevents the model from "learning" patterns that only existed in hindsight.
+      </div>
+      <button class="btn btn-lime" id="reflectBtn" onclick="runReflection()">Run reflection analysis</button>
+      <span id="reflectStatus" style="font-size:11px;color:var(--muted);margin-left:8px;"></span>
+    </div>
+    <div class="card-hd" style="margin-bottom:8px;">Reflection output & prompt improvements</div>
+    <div class="result empty" id="reflectResult">Run reflection once you have 10+ closed predictions.</div>
+    <div id="learnInsights" style="margin-top:14px;"></div>
+  </div>
+</div>
+</main>
+</div>
+<nav class="mobile-nav">
+  <button class="mobile-nav-item active" onclick="mobileNav('scan',this,'Stock Scanner')">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Scanner
+  </button>
+  <button class="mobile-nav-item" onclick="mobileNav('portfolio',this,'Portfolio')">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18"/></svg>Portfolio
+  </button>
+  <button class="mobile-nav-item" onclick="mobileNav('intel',this,'Daily Briefing')">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Briefing
+  </button>
+  <button class="mobile-nav-item" onclick="mobileNav('learn',this,'Self-Learning')">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Learning
+  </button>
+  <button class="mobile-nav-item" onclick="mobileNav('settings',this,'Settings')">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Settings
+  </button>
+</nav>
+<script>
+// ─── Storage helpers ──────────────────────────────────────────
+const S = { get: k => { try { return JSON.parse(localStorage.getItem('vp_'+k)); } catch{ return null; } }, set: (k,v) => localStorage.setItem('vp_'+k, JSON.stringify(v)) };
+let intelTimer = null, intelRunning = false;
+let intelFeed = S.get('intelFeed') || [];
+let alertLog = S.get('alertLog') || [];
+let intelCount = S.get('intelCount') || 0;
+let alertCount = S.get('alertCount') || 0;
+let portImages = [], portTab = 'screenshot';
+
+// ─── Nav ─────────────────────────────────────────────────────
+const PAGE_TITLES = {scan:'Stock Scanner',portfolio:'Portfolio Advisor',intel:'Daily Briefing',alerts:'Alert Setup',cadence:'Cadence Runner',updates:'Updates',learn:'Self-Learning',settings:'Settings'};
+
+function nav(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='intel') renderIntelFeed();
+  if(id==='alerts') renderAlertLog();
+  if(id==='updates') checkUpdates(false);
+  const t=document.getElementById('mobilePageTitle');
+  if(t) t.textContent=PAGE_TITLES[id]||id;
+}
+
+function mobileNav(id, el, title) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  el.classList.add('active');
+  const t=document.getElementById('mobilePageTitle');
+  if(t) t.textContent=title||PAGE_TITLES[id]||id;
+  if(id==='intel') renderIntelFeed();
+  if(id==='alerts') renderAlertLog();
+  if(id==='updates') checkUpdates(false);
+  if(id==='learn') renderLearnLog();
+  window.scrollTo(0,0);
+}
+
+// ─── Init ─────────────────────────────────────────────────────
+window.onload = () => {
+  const ghTok=S.get('ghToken'); if(ghTok&&document.getElementById('ghToken')) document.getElementById('ghToken').value=ghTok;
+  const ghRep=S.get('ghRepo'); if(ghRep&&document.getElementById('ghRepo')) document.getElementById('ghRepo').value=ghRep;
+  updateSyncLabel();
+  const k = S.get('apiKey');
+  if (k) { document.getElementById('apiKeyInput').value = k; updateApiStatus(true); }
+  const rn = S.get('riskNote'); if (rn) document.getElementById('riskNote').value = rn;
+  const ex = S.get('excludes'); if (ex) document.getElementById('excludes').value = ex;
+  const wl = S.get('watchlist'); if (wl) document.getElementById('watchlist').value = wl;
+  const tgt = S.get('tgToken'); if (tgt) document.getElementById('tgToken').value = tgt;
+  const tgc = S.get('tgChatId'); if (tgc) document.getElementById('tgChatId').value = tgc;
+  updateIntelStats();
+  checkUpdates(false);
+  addManRow();
+};
+
+// ─── API ─────────────────────────────────────────────────────
+function getKey() { return S.get('apiKey') || ''; }
+function saveKey() { const v = document.getElementById('apiKeyInput').value.trim(); S.set('apiKey', v); updateApiStatus(v.startsWith('sk-ant-')); }
+function savePrefs() {
+  S.set('riskNote', document.getElementById('riskNote').value);
+  S.set('excludes', document.getElementById('excludes').value);
+  S.set('watchlist', document.getElementById('watchlist').value);
+}
+function saveTg() { S.set('tgToken', document.getElementById('tgToken').value); S.set('tgChatId', document.getElementById('tgChatId').value); }
+function updateApiStatus(ok) {
+  const el = document.getElementById('apiStatus');
+  const sb = document.getElementById('sb-api-status');
+  if (ok) { el.textContent = '✓ Key looks valid'; el.style.color = 'var(--green)'; sb.textContent = 'API connected'; }
+  else { el.textContent = 'Key should start with sk-ant-'; el.style.color = 'var(--red)'; sb.textContent = 'API not set'; }
+}
+async function testApi() {
+  const el = document.getElementById('apiStatus');
+  el.textContent = 'Testing…'; el.style.color = 'var(--muted)';
+  const txt = await callClaude([{role:'user',content:'Reply with exactly: OK'}], null, null, null, true);
+  if (txt && txt.includes('OK')) { el.textContent = '✓ API working'; el.style.color = 'var(--green)'; }
+  else { el.textContent = '✗ API error — check key'; el.style.color = 'var(--red)'; }
+}
+
+async function callClaude(messages, outEl, statusEl, btnEl, silent=false, onDone=null) {
+  const key = getKey();
+  if (!key) { if (outEl) { outEl.textContent = 'No API key set. Go to Settings.'; outEl.classList.remove('empty'); } return null; }
+  if (btnEl) btnEl.disabled = true;
+  if (statusEl) statusEl.innerHTML = '<span class="spin"></span> Analysing…';
+  if (outEl && !silent) { outEl.textContent = ''; outEl.classList.remove('empty'); outEl.classList.add('streaming'); }
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:2000, messages })
+    });
+    const data = await res.json();
+    if (data.error) { const err = 'API error: '+data.error.message; if (outEl) outEl.textContent = err; return null; }
+    const text = data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    if (outEl) { outEl.textContent = text; outEl.classList.remove('streaming'); }
+    if (statusEl) { statusEl.textContent = 'Done'; setTimeout(()=>statusEl.textContent='', 3000); }
+    if (onDone) onDone(text);
+    return text;
+  } catch(e) {
+    const err = 'Error: '+e.message;
+    if (outEl) outEl.textContent = err;
+    return null;
+  } finally {
+    if (btnEl) btnEl.disabled = false;
+  }
+}
+
+// ─── Scan ─────────────────────────────────────────────────────
+async function runScan() {
+  const type = document.getElementById('scanType').value;
+  const sector = document.getElementById('sectorFocus').value.trim();
+  const extra = document.getElementById('extraCtx').value.trim();
+  const rn = S.get('riskNote') || ''; const ex = S.get('excludes') || '';
+  const ctx = [sector&&`Sector focus: ${sector}`, extra&&`Context: ${extra}`, rn&&`Risk note: ${rn}`, ex&&`Exclude: ${ex}`].filter(Boolean).join('\n');
+
+  const combined = `You are a value-focused equity analyst (US and SGX/SEA markets). Dual-horizon portfolio investor.
+${ctx}
+
+STEP 1 — MACRO (3 sentences): rate environment, sector rotations, key risk.
+
+STEP 2 — LONG-TERM SHORTLIST (4–5 stocks, 3 US + 2 SGX/SEA):
+Criteria: P/E or P/B below 5yr avg, FCF positive 3/4 years, net debt/EBITDA <2.5x, ROIC converging toward WACC, undervaluation cyclical not structural.
+Each: Ticker | Exchange | Undervaluation thesis | Margin of safety % | Quality 1–10
+Then: Entry zone | Entry trigger | Accumulation | 2–5yr target | Kill switch | Size %
+
+STEP 3 — SHORT-TERM SHORTLIST (3–4 stocks):
+Criteria: near-term catalyst with date, technical setup, hard stop <8%.
+Each: Ticker | Exchange | Catalyst | Date | Setup
+Then: Entry zone | Trigger | Target | Hard stop | Time stop date | Max size %
+
+STEP 4 — TIER RANKING: Tier 1 (act now) / Tier 2 (monitor) / Tier 3 (watchlist)
+
+STEP 5 — PORTFOLIO NOTE: allocation split, correlated pairs, one name to cap at 3%.
+
+Be direct. Flag estimated vs sourced.
+
+After your full analysis, append a JSON block in this exact format (no extra keys):
+\`\`\`json
+{
+  "macro": "one sentence macro context",
+  "longterm": [
+    {"ticker":"AAPL","exchange":"NASDAQ","sector":"Tech","sleeve":"LT","action":"Buy","entry":"$165–$172","target":"$240 (3yr)","stop":"Margin compression below 35% for 2 consecutive quarters","size":"5–7%","conviction":"Tier 1","thesis":"one sentence"}
+  ],
+  "shortterm": [
+    {"ticker":"XYZ","exchange":"NYSE","sector":"Energy","sleeve":"ST","action":"Buy","entry":"$45–$47","target":"$54","stop":"$42 hard stop","size":"3%","conviction":"Tier 2","catalyst":"Earnings beat expected Q2"}
+  ]
+}
+\`\`\``;
+
+  const lt = `Value equity analyst. Long-term value shortlist for US and SGX/SEA. ${ctx}
+STEP 1 — MACRO FILTER (3 sentences).
+STEP 2 — SHORTLIST (5–6 stocks, 3 US + 2–3 SGX, 1 small/mid-cap):
+Criteria: P/E or P/B below 5yr avg, FCF positive 3/4 yr, ND/EBITDA <2.5x, ROIC converging to WACC, cyclical undervaluation.
+Each: Ticker | Exchange | Why undervalued | Margin of safety % | Quality 1–10 | Thesis stage
+Then: Entry zone | Trigger | Accumulation | 2–5yr target | Kill switch | Size %
+STEP 3 — TIER RANKING.
+Be direct.`;
+
+  const st = `Tactical trader with value discipline. Short-term trades US and SGX/SEA. ${ctx}
+STEP 1 — CATALYST MAP: top 3–4 market-moving events next 1–3 months.
+STEP 2 — SHORTLIST (4–5 stocks): clear catalyst + date, technical setup, hard stop <8%.
+Each: Ticker | Exchange | Catalyst | Date | Setup | R:R ratio
+Then: Entry zone | Trigger (no chasing) | Target | Hard stop | Time stop | Max size %
+STEP 3 — RISK RULES: max sleeve allocation, early cut rule, full-close condition.
+STEP 4 — WATCHLIST: 2–3 names almost ready.
+Be direct.`;
+
+  const prompts = { combined, longterm:lt, shortterm:st };
+  await callClaude(
+    [{role:'user',content:prompts[type]}],
+    document.getElementById('scanResult'),
+    document.getElementById('scanStatus'),
+    document.getElementById('scanBtn'),
+    false,
+    (text) => {
+      document.getElementById('scanOutTabs').style.display = 'flex';
+      document.getElementById('scanTable').innerHTML = '<div style="padding:14px;color:var(--muted);font-size:12px;"><span class="spin"></span> Building action table…</div>';
+      extractAndRenderScan(text);
+    }
+  );
+}
+
+// ─── Portfolio ────────────────────────────────────────────────
+function switchPTab(tab, el) {
+  portTab = tab;
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('pt-ss').style.display = tab==='screenshot' ? 'block' : 'none';
+  document.getElementById('pt-man').style.display = tab==='manual' ? 'block' : 'none';
+}
+function dov(e){e.preventDefault();document.getElementById('uploadZone').classList.add('drag');}
+function dlv(){document.getElementById('uploadZone').classList.remove('drag');}
+function dfl(e){e.preventDefault();dlv();if(e.dataTransfer.files.length)handleFiles({target:{files:e.dataTransfer.files}});}
+function handleFiles(e){
+  const files=[...e.target.files].slice(0,8);
+  let loaded=0;
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=ev=>{
+      portImages.push({b64:ev.target.result.split(',')[1],type:f.type,name:f.name});
+      loaded++;
+      if(loaded===files.length) renderPreviews();
+    };
+    r.readAsDataURL(f);
+  });
+}
+function renderPreviews(){
+  const grid=document.getElementById('imgGrid');
+  const prev=document.getElementById('imgPreviews');
+  const count=document.getElementById('imgCount');
+  prev.style.display='block';
+  count.textContent=portImages.length+' screenshot'+(portImages.length>1?'s':'')+' loaded';
+  grid.innerHTML=portImages.map((img,i)=>`
+    <div style="position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--border);">
+      <img src="data:${img.type};base64,${img.b64}" style="width:100%;height:90px;object-fit:cover;display:block;">
+      <div style="padding:4px 6px;background:var(--bg3);display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px;">${img.name}</span>
+        <button onclick="removeImage(${i})" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:12px;padding:0 2px;">✕</button>
+      </div>
+    </div>`).join('');
+}
+function removeImage(i){portImages.splice(i,1);if(portImages.length)renderPreviews();else clearImages();}
+function clearImages(){portImages=[];document.getElementById('imgPreviews').style.display='none';document.getElementById('imgGrid').innerHTML='';document.getElementById('fi').value='';}
+function addManRow(){
+  const d=document.createElement('div');
+  d.className='row';d.style.marginBottom='6px';
+  d.innerHTML=`<input type="text" placeholder="Ticker" style="width:130px;flex-shrink:0;"><input type="text" placeholder="Entry price"><input type="text" placeholder="Current price"><input type="text" placeholder="Weight %"><button class="btn btn-ghost" style="font-size:11px;padding:6px 10px;flex-shrink:0;" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('manRows').appendChild(d);
+}
+async function runPort(){
+  const advice=document.getElementById('portAdvice').value;
+  const horizon=document.getElementById('portHorizon').value;
+  const aMap={exit:'EXIT RECOMMENDATIONS: hold, trim, or exit each position? Specific price targets and thesis-break conditions.',hold:'HOLD vs TRIM: which positions are oversized? Suggest size adjustments.',full:'FULL REVIEW: exits, holds, sizing, correlation risks, biggest gap.',stop:'STOP-LOSS PLACEMENT: specific stop level and logic for each position.'};
+  const hMap={mixed:'dual horizon (long-term 2–5yr + short-term <3months)',lt:'long-term 2–5yr',st:'short-term <3months'};
+  const sys=`Senior portfolio manager. Client is a value investor in US and SGX/SEA markets. Horizon: ${hMap[horizon]}. ${aMap[advice]} For each position: HOLD/TRIM/EXIT | Reasoning | Exit price/range | Kill-switch or stop. End with 2–3 sentence portfolio health assessment. Be direct.
+
+After your analysis, append a JSON block:
+\`\`\`json
+{"positions":[{"ticker":"TICKER","action":"Hold/Trim/Sell/Buy more","reasoning":"one sentence","exit":"price or condition","stop":"stop level or kill switch","priority":"High/Med/Low"}],"summary":"2 sentence portfolio health"}
+\`\`\``;
+  let msgs;
+  if(portTab==='screenshot'&&portImages.length){
+    const imgBlocks=portImages.map(img=>({type:'image',source:{type:'base64',media_type:img.type,data:img.b64}}));
+    const noteBlock={type:'text',text:`Analysing ${portImages.length} portfolio screenshot(s). Read all images together as one complete portfolio view — positions may be split across multiple screens or brokerages.\n\n`+sys};
+    msgs=[{role:'user',content:[...imgBlocks,noteBlock]}];
+  } else {
+    const rows=[...document.querySelectorAll('#manRows .row')];
+    const pos=rows.map(r=>{const i=r.querySelectorAll('input');return i[0].value?`${i[0].value}|Entry:${i[1].value||'?'}|Current:${i[2].value||'?'}|Weight:${i[3].value||'?'}%`:null;}).filter(Boolean);
+    if(!pos.length){document.getElementById('portResult').textContent='Add at least one position.';return;}
+    msgs=[{role:'user',content:`Portfolio review. Value investor. ${hMap[horizon]}.\nPositions:\n${pos.join('\n')}\n\n${sys}`}];
+  }
+  await callClaude(
+    msgs,
+    document.getElementById('portResult'),
+    document.getElementById('portStatus'),
+    document.getElementById('portBtn'),
+    false,
+    (text) => {
+      document.getElementById('portOutTabs').style.display = 'flex';
+      document.getElementById('portTable').innerHTML = '<div style="padding:14px;color:var(--muted);font-size:12px;"><span class="spin"></span> Building action table…</div>';
+      extractAndRenderPort(text);
+      // Auto-extract prices from screenshots to close open predictions
+      if(portTab === 'screenshot' && portImages.length) {
+        extractPricesFromScreenshots(portImages);
+      }
+    }
+  );
+}
+
+// ─── Live Intelligence ────────────────────────────────────────
+function updateIntelStats(){
+  document.getElementById('intel-count').textContent = intelCount;
+  const lastRun = S.get('lastIntelRun');
+  document.getElementById('intel-last').textContent = lastRun ? new Date(lastRun).toLocaleTimeString('en-SG',{hour:'2-digit',minute:'2-digit'}) : '—';
+  const portPos = JSON.parse(S.get('lastPortPositions')||'[]');
+  const scanStocks = JSON.parse(S.get('lastScanStocks')||'[]');
+  document.getElementById('intel-port-count').textContent = portPos.length || '—';
+  document.getElementById('intel-scan-count').textContent = scanStocks.length || '—';
+}
+
+function toggleIntel(){
+  const btn=document.getElementById('intelStartBtn');
+  const badge=document.getElementById('intel-state-badge');
+  const sbDot=document.getElementById('sb-intel-dot');
+  const sbStatus=document.getElementById('sb-intel-status');
+  if(intelRunning){
+    clearInterval(intelTimer); intelTimer=null; intelRunning=false;
+    btn.textContent='Start monitoring'; badge.textContent='Stopped'; badge.className='badge b-muted';
+    sbDot.style.background='var(--muted)'; sbStatus.textContent='Intel: stopped';
+  } else {
+    intelRunning=true; btn.textContent='Stop monitoring';
+    badge.textContent='Running'; badge.className='badge b-lime';
+    sbDot.style.background='var(--green)'; sbStatus.textContent='Intel: running';
+    runIntelNow();
+    const interval=parseInt(document.getElementById('intelInterval').value);
+    intelTimer=setInterval(runIntelNow, interval);
+  }
+}
+
+async function runIntelNow(){
+  const focus = document.getElementById('intelFocus').value;
+  const statusEl = document.getElementById('intelStatus');
+  const dataStatusEl = document.getElementById('intelDataStatus');
+  statusEl.innerHTML = '<span class="spin"></span> Building briefing…';
+
+  // ── Load context from other modules ──
+  const portPositions = JSON.parse(S.get('lastPortPositions')||'[]');
+  const portSummary = S.get('lastPortSummary')||'';
+  const portTs = S.get('lastPortTs')||'';
+  const scanStocks = JSON.parse(S.get('lastScanStocks')||'[]');
+  const scanMacro = S.get('lastScanMacro')||'';
+  const scanTs = S.get('lastScanTs')||'';
+
+  // Show data status
+  const dataLines = [];
+  if(portPositions.length) dataLines.push(`✓ ${portPositions.length} portfolio positions loaded (${portTs ? new Date(portTs).toLocaleDateString('en-SG') : 'unknown date'})`);
+  else dataLines.push('⚠ No portfolio data — run Portfolio Advisor first for personalised advice');
+  if(scanStocks.length) dataLines.push(`✓ ${scanStocks.length} watchlist stocks from scanner (${scanTs ? new Date(scanTs).toLocaleDateString('en-SG') : 'unknown date'})`);
+  else dataLines.push('⚠ No scan data — run Stock Scanner first to include watchlist');
+  dataStatusEl.textContent = dataLines.join('  ·  ');
+  dataStatusEl.style.display = 'block';
+
+  // ── Build portfolio context block ──
+  let portContext = '';
+  if(portPositions.length) {
+    const highPri = portPositions.filter(p=>(p.priority||'').toLowerCase().includes('high'));
+    const trimExit = portPositions.filter(p=>['TRIM','EXIT','SELL','REDUCE'].includes((p.action||'').toUpperCase()));
+    portContext = `\nCURRENT PORTFOLIO (${portPositions.length} positions, from last Portfolio Advisor run):
+Summary: ${portSummary || 'N/A'}
+HIGH PRIORITY actions pending:
+${highPri.map(p=>`- ${p.ticker}: ${p.action} | Exit: ${p.exit_target||p.exit||'N/S'} | Stop: ${p.stop||'N/S'} | Reason: ${(p.reasoning||'').slice(0,100)}`).join('\n') || '- None flagged high priority'}
+TRIM/EXIT candidates:
+${trimExit.map(p=>`- ${p.ticker}: ${p.action} | Exit target: ${p.exit_target||p.exit||'N/S'} | Stop: ${p.stop||'N/S'}`).join('\n') || '- None'}
+All positions: ${portPositions.map(p=>`${p.ticker}(${p.action||'?'})`).join(', ')}`;
+  }
+
+  // ── Build scan watchlist context ──
+  let scanContext = '';
+  if(scanStocks.length) {
+    const tier1 = scanStocks.filter(s=>(s.conviction||s.tier||'').toLowerCase().includes('1')||(s.conviction||'').toLowerCase().includes('high'));
+    scanContext = `\nSTOCK SCANNER WATCHLIST (${scanStocks.length} stocks):
+Macro context: ${scanMacro || 'N/A'}
+Tier 1 / highest conviction: ${tier1.map(s=>`${s.ticker} (entry: ${s.entry||'?'}, target: ${s.target||'?'})`).join(', ') || 'None'}
+Full watchlist: ${scanStocks.map(s=>`${s.ticker}[${s.sleeve||'LT'}] entry:${s.entry||'?'} tgt:${s.target||'?'}`).join(' | ')}`;
+  }
+
+  // ── Build the briefing prompt based on focus ──
+  const _now = new Date();
+  const _wd = _now.getDay();
+  const today = _now.toLocaleDateString('en-SG', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  const dayLabel = _wd===0?'Sunday Check-in':_wd===1?'Monday Weekly Review':_wd===6?'Weekend Portfolio Check':'Daily Briefing';
+
+  const focusInstructions = {
+    all: `Generate a COMPLETE DAILY BRIEFING covering all four sections below.`,
+    portfolio: `Focus only on SECTION 1 (Portfolio Actions) and SECTION 4 (Risk). Skip sections 2 and 3.`,
+    macro: `Focus only on SECTION 3 (Market Intelligence) and SECTION 4 (Risk). Skip sections 1 and 2.`,
+    risk: `Focus only on SECTION 4 (Risk Alerts). Also check SECTION 1 stops.`
+  };
+
+  const prompt = `You are a personal investment advisor generating a ${dayLabel} for a value investor. Date: ${today}.
+
+Investor profile: Value investing style, US (NYSE/NASDAQ) and SGX/SEA markets, dual horizon — long-term 2–5 years and short-term <3 months.
+${portContext}
+${scanContext}
+
+${focusInstructions[focus]}
+
+FORMAT YOUR RESPONSE IN THESE EXACT SECTIONS:
+
+## 🔴 URGENT ACTIONS (do today)
+List only actions that are time-sensitive: positions at or near stop levels, high-priority trims/exits, or short-term trades with imminent catalysts. For each: TICKER → ACTION → exact price level → reason in one sentence. If none, write "No urgent actions today."
+
+## 📋 PORTFOLIO REVIEW (positions to act on this week)
+For each portfolio position with a TRIM or EXIT recommendation: restate the action, current advice, and whether market conditions today support or change that advice. Be specific — reference the exit range and kill switch. Skip HOLD positions unless something has changed.
+
+## 🔭 WATCHLIST UPDATES (scanner stocks — ready to enter?)
+For each stock from the scanner: is it at or near the entry zone? What's the trigger to act? One line per stock. Flag any that are now actionable vs those to keep watching.
+
+## 📡 MARKET INTELLIGENCE (macro signals affecting your positions)
+3 points: (1) one macro signal relevant to your specific holdings today, (2) one risk that could trigger a stop or kill-switch in your portfolio, (3) one opportunity — either a new entry or a position to add to.
+
+## ✅ TODAY'S ACTION CHECKLIST
+A numbered list of the specific things to do today, in priority order. Maximum 8 items. Format: "1. [TICKER] — [action] at [price/condition]". Include only concrete, executable actions.
+
+Be direct. No preamble. If portfolio or scanner data is missing for a section, note it briefly and move on.
+
+Then append:
+\`\`\`json
+{"actions":[{"ticker":"TICKER","urgency":"Now/This week/Watch","action":"specific action","price":"price or condition","reason":"one sentence"}],"risk_level":"Low/Medium/High","key_risk":"one sentence"}
+\`\`\``;
+
+  const text = await callClaude([{role:'user', content:prompt}], null, null, null, true);
+  statusEl.textContent = '';
+
+  if(text) {
+    const entry = {text, ts: new Date().toISOString(), focus,
+      hasPort: portPositions.length > 0, hasScan: scanStocks.length > 0};
+    intelFeed.unshift(entry);
+    if(intelFeed.length > 20) intelFeed.pop();
+    S.set('intelFeed', intelFeed);
+    intelCount++; S.set('intelCount', intelCount);
+    S.set('lastIntelRun', new Date().toISOString());
+    updateIntelStats();
+    renderIntelFeed();
+
+    // Build telegram summary from checklist section
+    const checklistMatch = text.match(/## ✅ TODAY'S ACTION CHECKLIST([\s\S]*?)(?=##|```|$)/);
+    const telegramText = `📋 Vantage Daily Briefing — ${today}\n\n${checklistMatch ? checklistMatch[1].trim().slice(0,800) : text.slice(0,600)}`;
+    sendTelegramAlert(telegramText);
+  }
+}
+
+function renderIntelFeed(){
+  const el = document.getElementById('intelFeed');
+  if(!intelFeed.length){
+    el.innerHTML='<div style="padding:20px 0;color:var(--muted);font-size:12px;text-align:center;">Run briefing to generate today\'s consolidated action plan.</div>';
+    return;
+  }
+  // Show latest briefing in full, then older ones collapsed
+  const latest = intelFeed[0];
+  const older = intelFeed.slice(1);
+  const cleanText = (t) => t.replace(/```json[\s\S]*?```/g,'').trim();
+
+  // Render latest as full formatted report
+  let html = `<div style="padding:16px 0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:500;color:var(--lime);">LATEST BRIEFING</div>
+      <div style="font-size:10px;font-family:'Geist Mono',monospace;color:var(--muted);">
+        ${new Date(latest.ts).toLocaleString('en-SG',{dateStyle:'medium',timeStyle:'short'})}
+        ${latest.hasPort?'<span style="margin-left:8px;color:var(--green);">● portfolio</span>':''}
+        ${latest.hasScan?'<span style="margin-left:4px;color:var(--blue);">● watchlist</span>':''}
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text);white-space:pre-wrap;line-height:1.8;">${cleanText(latest.text)}</div>
+  </div>`;
+
+  // Older briefings collapsed
+  if(older.length) {
+    html += `<div style="border-top:1px solid var(--border);padding-top:12px;margin-top:12px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Previous briefings</div>`;
+    older.forEach((f,i)=>{
+      const preview = cleanText(f.text).slice(0,120).replace(/#+\s*/g,'').replace(/\n/g,' ');
+      html += `<details style="margin-bottom:8px;">
+        <summary style="cursor:pointer;font-size:12px;color:var(--muted);padding:6px 0;list-style:none;display:flex;justify-content:space-between;">
+          <span>${new Date(f.ts).toLocaleString('en-SG',{dateStyle:'short',timeStyle:'short'})} · ${preview.slice(0,80)}…</span>
+        </summary>
+        <div style="font-size:12px;color:var(--text);white-space:pre-wrap;line-height:1.7;padding:10px 0;">${cleanText(f.text)}</div>
+      </details>`;
+    });
+    html += '</div>';
+  }
+
+  el.innerHTML = html;
+  document.getElementById('intelOutTabs').style.display = 'flex';
+  renderIntelCards(intelFeed);
+}
+
+// ─── Telegram ─────────────────────────────────────────────────
+async function sendTelegramAlert(text){
+  const token=S.get('tgToken'); const chatId=S.get('tgChatId');
+  if(!token||!chatId) return;
+  try{
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:chatId,text,parse_mode:'Markdown'})
+    });
+    alertCount++; S.set('alertCount', alertCount);
+    const entry={text:text.slice(0,80)+'…', ts:new Date().toISOString()};
+    alertLog.unshift(entry); if(alertLog.length>20) alertLog.pop();
+    S.set('alertLog', alertLog);
+    document.getElementById('intel-alerts').textContent=alertCount;
+    renderAlertLog();
+  }catch(e){}
+}
+
+async function testTelegram(){
+  const st=document.getElementById('tgTestStatus');
+  st.innerHTML='<span class="spin"></span> Sending…';
+  const token=S.get('tgToken'); const chatId=S.get('tgChatId');
+  if(!token||!chatId){st.textContent='Enter token and chat ID first.';return;}
+  try{
+    const r=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:chatId,text:'✅ Vantage Pro connected. You will receive market intelligence alerts here.'})
+    });
+    const d=await r.json();
+    if(d.ok){st.textContent='✓ Sent! Check Telegram.';st.style.color='var(--green)';}
+    else{st.textContent='Error: '+d.description;st.style.color='var(--red)';}
+  }catch(e){st.textContent='Error: '+e.message;st.style.color='var(--red)';}
+}
+
+function renderAlertLog(){
+  const el=document.getElementById('alertLog');
+  if(!alertLog.length){el.innerHTML='<div style="padding:20px 0;color:var(--muted);font-size:12px;text-align:center;">No alerts sent yet.</div>';return;}
+  el.innerHTML='<div style="padding:0;">'+alertLog.map(a=>`
+    <div class="notif-item">
+      <div><div class="notif-title">Alert sent</div><div class="notif-body">${a.text}</div></div>
+      <div class="notif-time">${new Date(a.ts).toLocaleString('en-SG',{dateStyle:'short',timeStyle:'short'})}</div>
+    </div>`).join('')+'</div>';
+}
+
+// ─── Alert tabs ───────────────────────────────────────────────
+function switchAlertTab(tab, el){
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  ['telegram','ios','make'].forEach(t=>document.getElementById('at-'+t).style.display=t===tab?'block':'none');
+}
+
+function copyIosShortcut(){
+  const body=document.getElementById('iosBody').textContent;
+  navigator.clipboard.writeText(body).then(()=>{
+    const s=document.getElementById('iosStatus'); s.textContent='Copied — paste into Shortcuts app';
+    setTimeout(()=>s.textContent='',3000);
+  });
+}
+
+// ─── Cadence ─────────────────────────────────────────────────
+async function runCadence(){
+  const type=document.getElementById('cadType').value;
+  const raw=document.getElementById('cadTickers').value.trim();
+  const tickers=raw||S.get('watchlist')||'your current positions';
+  const tickerNote=`Positions: ${tickers}`;
+  const prompts={
+    wst:`Tactical trading analyst. Weekly short-term sleeve review. ${tickerNote}\n1. STOP CHECK — for each listed position, is the stop still valid or should it be adjusted?\n2. CATALYST UPDATE — any catalysts this week that change the thesis for active trades?\n3. NEW SETUPS — 1–2 short-term setups worth watching. Entry trigger, hard stop, target.\n4. TIME STOPS — any positions that have hit their time stop this week? Exit regardless of price.\nConcise. One paragraph per section.`,
+    wport:`Portfolio risk manager. Weekly portfolio stop-check. ${tickerNote}\n1. STOP LEVELS — confirm or adjust stop-loss levels based on current conditions.\n2. SIZING DRIFT — any position grown beyond intended weight? Suggest trim.\n3. KILL SWITCHES — any thesis-break conditions triggered or showing early warning?\n4. NEXT WEEK RISK — one key macro or earnings event next week affecting these positions.`,
+    mlt:`Value portfolio manager. Monthly long-term sleeve review. ${tickerNote}\n1. THESIS INTEGRITY — for each position: Intact / Weakening / Broken.\n2. VALUATION UPDATE — margin of safety expanded or compressed? Still in entry zone or at fair value?\n3. BUSINESS QUALITY — any fundamental deterioration in the last month?\n4. POSITION SIZING — add on confirmation, or trim on uncertainty?\n5. NEW IDEAS — one new long-term value idea to research this month.`
+  };
+  await callClaude([{role:'user',content:prompts[type]}], document.getElementById('cadResult'), document.getElementById('cadStatus'), document.getElementById('cadBtn'));
+}
+
+// ─── Updates ──────────────────────────────────────────────────
+const KNOWN_VERSION = 'claude-sonnet-4-6';
+const APP_VERSION = '1.0.0';
+let lastUpdateCheck = S.get('lastUpdateCheck');
+
+async function checkUpdates(force){
+  const now = Date.now();
+  if(!force && lastUpdateCheck && (now - lastUpdateCheck) < 86400000) {
+    renderUpdateBox(S.get('updateResult') || 'no_update'); return;
+  }
+  document.getElementById('updateStatus').innerHTML='<span class="spin"></span> Checking…';
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/models', {
+      headers:{'x-api-key':getKey()||'invalid','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}
+    });
+    const d = await r.json();
+    let latestSonnet = KNOWN_VERSION;
+    if(d.data) {
+      const sonnets = d.data.filter(m=>m.id && m.id.includes('claude-sonnet')).map(m=>m.id).sort().reverse();
+      if(sonnets.length) latestSonnet = sonnets[0];
+    }
+    const hasUpgrade = latestSonnet !== KNOWN_VERSION;
+    const result = hasUpgrade ? 'model_upgrade:'+latestSonnet : 'no_update';
+    S.set('updateResult', result);
+    S.set('lastUpdateCheck', now); lastUpdateCheck = now;
+    document.getElementById('updateStatus').textContent='Done';
+    setTimeout(()=>document.getElementById('updateStatus').textContent='',3000);
+    renderUpdateBox(result);
+    document.getElementById('version-tag').textContent = `v${APP_VERSION} · ${hasUpgrade?'update available':'up to date'}`;
+    if(hasUpgrade) sendTelegramAlert(`🆕 Vantage Update\n\nNew model available: ${latestSonnet}\nConsider re-running your long-term scan with the upgraded model.`);
+  } catch(e) {
+    document.getElementById('updateStatus').textContent='';
+    renderUpdateBox('no_update');
+  }
+}
+
+function renderUpdateBox(result){
+  const el=document.getElementById('updateBox');
+  if(result.startsWith('model_upgrade')){
+    const newModel=result.split(':')[1];
+    el.innerHTML=`<div class="update-box" style="border-color:rgba(184,240,64,.3);background:rgba(184,240,64,.04);margin-bottom:14px;">
+      <div class="update-icon">🆕</div>
+      <div><div class="update-text">New model available: <strong>${newModel}</strong></div>
+      <div class="update-sub">A newer Claude model is available. Re-running your long-term scan with the latest model may improve analysis quality. The app already uses the latest model for all new requests.</div></div>
+    </div>`;
+  } else {
+    el.innerHTML=`<div class="update-box" style="border-color:rgba(74,222,128,.2);background:rgba(74,222,128,.03);margin-bottom:14px;">
+      <div class="update-icon">✅</div>
+      <div><div class="update-text">Vantage Pro is up to date</div>
+      <div class="update-sub">Using ${KNOWN_VERSION} · App v${APP_VERSION} · Last checked: ${new Date().toLocaleDateString('en-SG')}</div></div>
+    </div>`;
+  }
+}
+
+async function runPromptAudit(){
+  const prompt=`You are evaluating the quality of an investment analysis app's prompts. The app serves a value investor in US and SGX/SEA markets with a dual horizon (long-term 2–5yr, short-term <3months).
+
+Evaluate the following aspects and give a grade (A/B/C) plus one specific improvement for each:
+
+1. VALUE SCREENING CRITERIA — are the financial filters (P/E, FCF, ROIC, ND/EBITDA) correctly calibrated for current market conditions?
+2. ENTRY POINT LOGIC — is asking for "price zones with trigger conditions" the best approach, or is there a better framework?
+3. EXIT DISCIPLINE — are thesis-based kill switches superior to price-based stops for long-term positions?
+4. SHORT-TERM CATALYST FOCUS — is the current approach to identifying near-term catalysts robust?
+5. SGX/SEA COVERAGE — what are the limitations of using an LLM for Singapore-listed stock research, and how should they be disclosed?
+
+End with: one highest-priority prompt improvement to implement now.`;
+  await callClaude([{role:'user',content:prompt}], document.getElementById('auditResult'), null, document.getElementById('auditBtn'));
+}
+
+// ─── Output tab switcher ──────────────────────────────────────
+function switchOut(section, view, el) {
+  const prefix = {'scan':'scanOut','port':'portOut','intel':'intelOut'}[section];
+  document.querySelectorAll('#'+prefix+'Tabs .out-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(prefix+'Raw').classList.toggle('active', view==='raw');
+  document.getElementById(prefix+'Table').classList.toggle('active', view==='table');
+}
+
+// ─── Action colour helper ─────────────────────────────────────
+function actionPill(a) {
+  const t = (a||'').toLowerCase();
+  if(t.includes('buy')||t.includes('add')||t.includes('accumulate')) return `<span class="pill-action pa-buy">${a}</span>`;
+  if(t.includes('sell')||t.includes('exit')||t.includes('close')) return `<span class="pill-action pa-sell">${a}</span>`;
+  if(t.includes('trim')||t.includes('reduce')) return `<span class="pill-action pa-trim">${a}</span>`;
+  if(t.includes('watch')||t.includes('monitor')||t.includes('wait')) return `<span class="pill-action pa-watch">${a}</span>`;
+  return `<span class="pill-action pa-hold">${a||'Hold'}</span>`;
+}
+
+// ─── Parse Claude JSON from response ─────────────────────────
+function extractJSON(text) {
+  const patterns = [/```json\s*([\s\S]*?)```/, /```\s*(\{[\s\S]*?\})\s*```/];
+  for(const p of patterns) {
+    const m = text.match(p);
+    if(m) { try { return JSON.parse(m[1].trim()); } catch(e){} }
+  }
+  const starts = [];
+  for(let i=0;i<text.length;i++) { if(text[i]==='{') starts.push(i); }
+  for(const s of starts) {
+    for(let e=text.length;e>s;e--) {
+      if(text[e-1]==='}') {
+        try {
+          const parsed = JSON.parse(text.slice(s,e));
+          if(parsed.stocks||parsed.longterm||parsed.shortterm||parsed.positions||parsed.signals||parsed.macro) return parsed;
+        } catch(e2){}
+        break;
+      }
+    }
+  }
+  return null;
+}
+
+function parseScanHeuristic(text) {
+  const stocks = [];
+  const lines = text.split('\n');
+  for(const line of lines) {
+    if(!line.includes('|')) continue;
+    const parts = line.split('|').map(p=>p.replace(/\*/g,'').trim()).filter(Boolean);
+    if(parts.length >= 3 && parts[0].match(/^[A-Z]{1,5}(\.[A-Z]{1,2})?$/)) {
+      stocks.push({
+        ticker:parts[0], exchange:parts[1]||'', sector:parts[2]||'',
+        sleeve: line.toLowerCase().includes('short')||line.toLowerCase().includes(' st')?'ST':'LT',
+        action:'Buy', entry:parts[4]||'See full text', target:parts[5]||'—',
+        stop:'See full text', conviction:parts[3]||'T2', thesis:parts[3]||''
+      });
+    }
+  }
+  return stocks.length ? {stocks, macro:''} : null;
+}
+
+function parsePortHeuristic(text) {
+  const positions = [];
+  const lines = text.split('\n');
+  for(const line of lines) {
+    const actMatch = line.match(/\b([A-Z]{1,5}(?:\.[A-Z]{1,2})?)\b[\s\S]{0,80}\b(HOLD|TRIM|EXIT|SELL|BUY|ACCUMULATE|REDUCE)\b/i);
+    if(actMatch) {
+      if(!positions.find(p=>p.ticker===actMatch[1])) {
+        positions.push({ticker:actMatch[1], action:actMatch[2].toUpperCase(),
+          reasoning:line.slice(0,120).trim(), exit:'See full text', stop:'See full text', priority:'Med'});
+      }
+    }
+    if(line.includes('|')) {
+      const parts = line.split('|').map(p=>p.replace(/\*/g,'').trim()).filter(Boolean);
+      if(parts.length>=2 && parts[0].match(/^[A-Z]{1,5}(\.[A-Z]{1,2})?$/) && !positions.find(p=>p.ticker===parts[0])) {
+        positions.push({ticker:parts[0], action:parts[1]||'Hold', reasoning:parts[2]||'—',
+          exit:parts[3]||'', stop:parts[4]||'', priority:'Med'});
+      }
+    }
+  }
+  return positions.length ? {positions, summary:''} : null;
+}
+
+// ─── Render scan action table ─────────────────────────────────
+function renderScanTable(text, data=null) {
+  if(!data) data = extractJSON(text) || parseScanHeuristic(text);
+  const el = document.getElementById('scanTable');
+  // data already resolved by caller
+  if(!data || (!data.stocks && !data.longterm && !data.shortterm)) {
+    el.innerHTML = '<div class="empty-table" style="text-align:left;padding:16px;"><strong style="color:var(--text);">Could not auto-parse — here is a text summary:</strong><div style="margin-top:8px;font-size:12px;color:var(--muted);white-space:pre-wrap;line-height:1.7;">'+(text.slice(0,1200))+'...</div></div>';
+    return;
+  }
+  const stocks = [...(data.longterm||[]), ...(data.shortterm||[]), ...(data.stocks||[])];
+  if(!stocks.length) { el.innerHTML = '<div class="empty-table">No stock rows found. Check Full Text tab.</div>'; return; }
+
+  let html = `<div style="overflow-x:auto;"><table class="action-table">
+    <thead><tr>
+      <th>Ticker</th><th>Sleeve</th><th>Action</th><th>Entry zone</th>
+      <th>Target</th><th>Stop / Kill switch</th><th>Size %</th><th>Conviction</th>
+    </tr></thead><tbody>`;
+  stocks.forEach(s=>{
+    html += `<tr>
+      <td><strong>${s.ticker||'—'}</strong><br><span style="font-size:10px;color:var(--muted);">${s.exchange||''} · ${s.sector||''}</span></td>
+      <td><span class="badge ${(s.sleeve||'').toLowerCase().includes('short')?'b-purple':'b-blue'}" style="font-size:10px;">${s.sleeve||'LT'}</span></td>
+      <td>${actionPill(s.action||'Buy')}</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:11px;">${s.entry||'—'}</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--green);">${s.target||'—'}</td>
+      <td style="font-size:11px;color:var(--red);">${s.stop||s.killswitch||'—'}</td>
+      <td style="font-family:'Geist Mono',monospace;">${s.size||'—'}</td>
+      <td>${renderConviction(s.conviction||s.tier||'')}</td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+  if(data.macro) html += `<div class="signal-card" style="margin-top:12px;"><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Macro context</div><div style="font-size:12px;color:var(--text);line-height:1.6;">${data.macro}</div></div>`;
+  el.innerHTML = html;
+  // Persist scan results for Live Intelligence
+  S.set('lastScanStocks', JSON.stringify(stocks));
+  S.set('lastScanMacro', data.macro||'');
+  S.set('lastScanTs', new Date().toISOString());
+  pushContextToGitHub(false);
+  // Auto-log predictions for self-learning
+  autoLogScanPredictions(stocks);
+}
+
+// ─── Render portfolio action table ────────────────────────────
+function renderPortTable(text, data=null) {
+  if(!data) data = extractJSON(text);
+  const el = document.getElementById('portTable');
+  // Validate positions have real ticker symbols — reject heuristic garbage
+  if(data && data.positions) {
+    data.positions = data.positions.filter(p => p.ticker && /^[A-Z]{1,5}(\.[A-Z]{1,2})?$/.test(p.ticker.trim()));
+  }
+  if(!data || !data.positions || !data.positions.length) {
+    el.innerHTML = '<div class="empty-table" style="text-align:left;padding:16px;"><strong style="color:var(--text);">Could not auto-parse — here is a text summary:</strong><div style="margin-top:8px;font-size:12px;color:var(--muted);white-space:pre-wrap;line-height:1.7;">'+(text.slice(0,1200))+'...</div></div>';
+    return;
+  }
+  // Build card-based layout instead of cramped table — easier to read
+  let html = '<div style="display:flex;flex-direction:column;gap:10px;">';
+  data.positions.forEach(p=>{
+    const exitVal = p.exit_target || p.exit || p.target || 'NOT SPECIFIED';
+    const stopVal = p.stop || p.killswitch || 'NOT SPECIFIED';
+    const entryVal = p.entry_price || p.entry || '';
+    const upside = p.upside || '';
+    const isNotSpecified = exitVal === 'NOT SPECIFIED' || exitVal === '—';
+    html += `<div class="signal-card">
+      <div class="signal-header" style="margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <strong style="font-size:14px;">${p.ticker||'—'}</strong>
+          ${entryVal ? '<span style="font-size:11px;color:var(--muted);">entry: '+entryVal+'</span>' : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          ${renderPriority(p.priority||'')}
+          ${actionPill(p.action||'Hold')}
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px;">${p.reasoning||'—'}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:var(--bg4);border-radius:6px;padding:8px 10px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">Exit target</div>
+          <div style="font-size:12px;font-family:'Geist Mono',monospace;color:${isNotSpecified?'var(--muted)':'var(--green)'};">${exitVal}</div>
+          ${upside ? '<div style="font-size:10px;color:var(--green);margin-top:2px;">'+upside+'</div>' : ''}
+        </div>
+        <div style="background:var(--bg4);border-radius:6px;padding:8px 10px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">Stop / kill switch</div>
+          <div style="font-size:12px;color:${stopVal==='NOT SPECIFIED'?'var(--muted)':'var(--red)'};">${stopVal}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  if(data.summary && data.summary !== 'NOT SPECIFIED') {
+    html += `<div class="signal-card" style="margin-top:4px;border-color:rgba(184,240,64,.15);">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Portfolio health assessment</div>
+      <div style="font-size:12px;color:var(--text);line-height:1.6;">${data.summary}</div>
+    </div>`;
+  }
+  html += '<div style="font-size:10px;color:var(--muted);padding:8px 0;line-height:1.5;">⚠ Exit targets and stops are sourced from the AI analysis only — verify against current prices before acting. NOT SPECIFIED means the analysis did not state a value.</div>';
+  el.innerHTML = html;
+  // Persist positions for Live Intelligence
+  S.set('lastPortPositions', JSON.stringify(data.positions));
+  S.set('lastPortSummary', data.summary||'');
+  S.set('lastPortTs', new Date().toISOString());
+  pushContextToGitHub(false);
+  // Auto-log predictions for self-learning
+  autoLogPortPredictions(data.positions);
+}
+
+// ─── Render intel action cards ────────────────────────────────
+function renderIntelCards(feed) {
+  const el = document.getElementById('intelCards');
+  if(!feed.length){el.innerHTML='<div class="empty-table">Run briefing to see action cards.</div>';return;}
+  const latest = feed[0];
+  const parsed = extractJSON(latest.text);
+
+  // Use structured actions JSON if available
+  if(parsed && parsed.actions && parsed.actions.length) {
+    const urgencyOrder = {'now':0,'today':0,'this week':1,'watch':2};
+    const sorted = [...parsed.actions].sort((a,b)=>{
+      const ua = urgencyOrder[(a.urgency||'watch').toLowerCase()] ?? 2;
+      const ub = urgencyOrder[(b.urgency||'watch').toLowerCase()] ?? 2;
+      return ua - ub;
+    });
+    const riskColor = {Low:'var(--green)',Medium:'var(--amber)',High:'var(--red)'}[parsed.risk_level||'Low']||'var(--muted)';
+    let html = '';
+    if(parsed.risk_level || parsed.key_risk) {
+      html += `<div class="signal-card" style="border-color:${riskColor}33;margin-bottom:4px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Overall risk</div>
+          <span style="font-size:11px;font-weight:500;color:${riskColor};">${parsed.risk_level||'—'}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text);">${parsed.key_risk||''}</div>
+      </div>`;
+    }
+    const urgencyLabels = {'Now':'🔴 Act now','Today':'🔴 Act now','This week':'🟡 This week','Watch':'🔵 Watch'};
+    let lastUrgency = '';
+    sorted.forEach(a=>{
+      const urg = a.urgency||'Watch';
+      if(urg !== lastUrgency) {
+        html += `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:8px 0 4px;">${urgencyLabels[urg]||urg}</div>`;
+        lastUrgency = urg;
+      }
+      html += `<div class="signal-card" style="margin-bottom:6px;">
+        <div class="signal-header" style="margin-bottom:6px;">
+          <strong style="font-size:13px;">${a.ticker||'—'}</strong>
+          ${actionPill(a.action||'Review')}
+        </div>
+        <div style="font-size:12px;color:var(--text);margin-bottom:6px;">${a.reason||'—'}</div>
+        ${a.price?`<div style="font-size:11px;font-family:'Geist Mono',monospace;color:var(--lime);">At: ${a.price}</div>`:''}
+      </div>`;
+    });
+    html += `<div style="font-size:10px;color:var(--muted);padding:8px 0;">Briefing: ${new Date(latest.ts).toLocaleString('en-SG',{dateStyle:'medium',timeStyle:'short'})}</div>`;
+    el.innerHTML = html;
+    return;
+  }
+
+  // Fallback: extract checklist items from text
+  const checklistMatch = latest.text.match(/## ✅ TODAY'S ACTION CHECKLIST([\s\S]*?)(?=##|```|$)/);
+  if(checklistMatch) {
+    const items = checklistMatch[1].trim().split('\n').filter(l=>l.match(/^\d+\./));
+    if(items.length) {
+      el.innerHTML = `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Today's action checklist</div>` +
+        items.map(item=>{
+          const clean = item.replace(/^\d+\.\s*/,'');
+          const tickerM = clean.match(/^\[?([A-Z]{1,5})\]?/);
+          const ticker = tickerM ? tickerM[1] : '';
+          return `<div class="signal-card" style="margin-bottom:6px;">
+            <div class="signal-header">
+              <strong>${ticker||'Action'}</strong>
+              ${actionPill(clean.toLowerCase().includes('trim')?'Trim':clean.toLowerCase().includes('exit')?'Exit':clean.toLowerCase().includes('buy')||clean.toLowerCase().includes('add')?'Buy':'Review')}
+            </div>
+            <div style="font-size:12px;color:var(--text);margin-top:4px;">${clean}</div>
+          </div>`;
+        }).join('');
+      return;
+    }
+  }
+  el.innerHTML = '<div class="empty-table">No structured actions found. Check Full Report tab.</div>';
+}
+
+function renderConviction(v) {
+  const t = (v||'').toLowerCase();
+  if(t.includes('1')||t.includes('high')||t.includes('tier 1')) return '<span style="color:var(--lime);font-size:11px;">★★★ High</span>';
+  if(t.includes('2')||t.includes('med')||t.includes('tier 2')) return '<span style="color:var(--amber);font-size:11px;">★★ Med</span>';
+  return '<span style="color:var(--muted);font-size:11px;">★ Watch</span>';
+}
+
+function renderPriority(v) {
+  const t = (v||'').toLowerCase();
+  if(t.includes('high')||t.includes('urgent')||t.includes('1')) return '<span style="color:var(--red);font-size:11px;">High</span>';
+  if(t.includes('med')||t.includes('2')) return '<span style="color:var(--amber);font-size:11px;">Med</span>';
+  return '<span style="color:var(--muted);font-size:11px;">Low</span>';
+}
+
+// ─── Second-pass extraction: scan ────────────────────────────
+async function extractAndRenderScan(analysisText) {
+  const el = document.getElementById('scanTable');
+  el.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:12px;"><span class="spin"></span> Building action table…</div>';
+
+  // Fast path: try local parse first
+  let scanData = extractJSON(analysisText) || parseScanHeuristic(analysisText);
+  if(scanData && (scanData.stocks || scanData.longterm || scanData.shortterm)) {
+    renderScanTable(analysisText, scanData);
+    return;
+  }
+
+  // Second pass: dedicated extraction call
+  const extractPrompt = `You are a data extraction engine. Read the investment analysis and return ONLY a JSON object with no other text.
+
+Return this exact structure:
+{"macro":"one sentence macro context","longterm":[{"ticker":"SYMBOL","exchange":"NYSE/SGX/etc","sector":"sector","sleeve":"LT","action":"Buy","entry":"entry zone from text","target":"price target from text","stop":"kill switch from text","size":"position size %","conviction":"Tier 1 or 2 or 3","thesis":"one sentence"}],"shortterm":[{"ticker":"SYMBOL","exchange":"NYSE/SGX/etc","sector":"sector","sleeve":"ST","action":"Buy","entry":"entry zone","target":"target","stop":"hard stop","size":"size %","conviction":"Tier 1 or 2 or 3","catalyst":"catalyst"}]}
+
+Rules:
+- longterm = [] and shortterm = [] if none exist
+- Extract ALL tickers with recommendations
+- Copy values verbatim from text; write "See analysis" if not stated
+- Return ONLY the JSON object
+
+ANALYSIS:
+${analysisText.slice(0, 7000)}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','x-api-key':getKey()},
+      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:2000,
+        messages:[{role:'user', content:extractPrompt}]})
+    });
+    const d = await res.json();
+    if(d.content) {
+      const raw = d.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+      const extracted = extractJSON(raw);
+      if(extracted && (extracted.longterm || extracted.shortterm || extracted.stocks)) {
+        renderScanTable(analysisText, extracted);
+        return;
+      }
+    }
+  } catch(e) { console.log('Scan extraction failed:', e); }
+
+  // Fallback: show full analysis text
+  el.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--text);white-space:pre-wrap;line-height:1.7;">' + analysisText + '</div>';
+}
+
+// ─── Second-pass extraction: portfolio ───────────────────────
+async function extractAndRenderPort(analysisText) {
+  const el = document.getElementById('portTable');
+  el.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:12px;"><span class="spin"></span> Extracting positions…</div>';
+
+  // Split into batches of 8 positions to stay within token limits
+  const batchSize = 8;
+  const sections = analysisText.split(/\n---\n/).filter(s => s.trim().length > 50);
+  const batches = [];
+  for(let i = 0; i < sections.length; i += batchSize) {
+    batches.push(sections.slice(i, i + batchSize).join('\n---\n'));
+  }
+  // If no --- separators found, split by ### headers instead
+  const chunks = batches.length > 0 ? batches : [analysisText];
+
+  const allPositions = [];
+  let summary = '';
+
+  for(let b = 0; b < chunks.length; b++) {
+    const chunk = chunks[b];
+    el.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:12px;"><span class="spin"></span> Extracting batch ' + (b+1) + ' of ' + chunks.length + '…</div>';
+
+    const extractPrompt = `You are a data extraction engine. Extract stock positions from this portfolio analysis into JSON.
+
+Return ONLY this JSON structure with no other text:
+{"positions":[{"ticker":"SYMBOL","action":"HOLD or TRIM or EXIT or BUY MORE","reasoning":"exact reasoning from text","entry_price":"price if mentioned else blank","exit_target":"exact value from text else NOT SPECIFIED","stop":"exact value from text else NOT SPECIFIED","priority":"High or Med or Low"}],"summary":""}
+
+Rules:
+- ticker = stock symbol only (e.g. SNDK, PLTR, MA) — strip any exchange suffix for display
+- NEVER invent numbers — copy exactly from text or write NOT SPECIFIED
+- Include every ticker in this text that has a recommendation
+- summary = only fill if text contains an overall portfolio assessment
+
+TEXT:
+${chunk.slice(0, 8000)}`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':getKey(),'anthropic-dangerous-direct-browser-access':'true'},
+        body: JSON.stringify({
+          model:'claude-sonnet-4-6',
+          max_tokens: 2000,
+          messages:[{role:'user', content:extractPrompt}]
+        })
+      });
+      const d = await res.json();
+      if(d.content) {
+        const raw = d.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+        const parsed = extractJSON(raw);
+        if(parsed && parsed.positions) {
+          allPositions.push(...parsed.positions.filter(p => p.ticker && /^[A-Z]{1,5}(\.[A-Z]{1,2})?$/.test(p.ticker.trim())));
+          if(parsed.summary) summary = parsed.summary;
+        }
+      }
+    } catch(e) { console.log('Batch ' + b + ' failed:', e); }
+  }
+
+  if(allPositions.length > 0) {
+    renderPortTable(analysisText, {positions: allPositions, summary});
+  } else {
+    // True fallback: render full analysis text readably
+    el.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--text);white-space:pre-wrap;line-height:1.7;">' + analysisText + '</div>';
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
+// AUTO PRICE EXTRACTION FROM PORTFOLIO SCREENSHOTS
+// Fires after every portfolio upload — closes matching predictions
+// ════════════════════════════════════════════════════════════
+
+async function extractPricesFromScreenshots(images) {
+  const openPreds = predictions.filter(p => p.status === 'open');
+  if(!openPreds.length) return;
+
+  // Show non-blocking status in learn page if visible
+  const learnActive = document.getElementById('page-learn').classList.contains('active');
+  if(learnActive) {
+    const logEl = document.getElementById('learn-open-list');
+    if(logEl) {
+      const notice = document.createElement('div');
+      notice.id = 'price-extract-notice';
+      notice.style.cssText = 'font-size:11px;color:var(--muted);padding:8px 10px;background:var(--bg3);border-radius:8px;margin-bottom:8px;';
+      notice.innerHTML = '<span class="spin"></span> Reading current prices from your screenshots…';
+      logEl.prepend(notice);
+    }
+  }
+
+  const openTickers = openPreds.map(p => p.ticker).join(', ');
+
+  // Build extraction prompt — send all images in one pass
+  const imgBlocks = images.map(img => ({
+    type: 'image',
+    source: { type: 'base64', media_type: img.type, data: img.b64 }
+  }));
+
+  const extractPrompt = {
+    type: 'text',
+    text: `Read these brokerage portfolio screenshots carefully. Extract the current market price (or last price) for every visible stock position.
+
+I specifically need prices for these tickers if visible: ${openTickers}
+
+Return ONLY a JSON object in this exact format, nothing else:
+{"prices":[{"ticker":"AAPL","price":"182.50","pnl_pct":"12.3","pnl_direction":"up"},{"ticker":"DBS.SI","price":"38.20","pnl_pct":"-2.1","pnl_direction":"down"}]}
+
+Rules:
+- ticker: use the exact symbol shown (e.g. AAPL, DBS.SI, MSFT)
+- price: the current/last market price as shown, as a string
+- pnl_pct: unrealised P&L percentage if visible, else blank
+- pnl_direction: "up" if positive P&L, "down" if negative, "flat" if zero
+- Include ALL visible tickers, not just the ones I listed
+- Return ONLY the JSON object`
+  };
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': getKey() },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 800,
+        messages: [{ role: 'user', content: [...imgBlocks, extractPrompt] }]
+      })
+    });
+    const d = await res.json();
+    if(!d.content) throw new Error('No content');
+    const raw = d.content.filter(b => b.type === 'text').map(b => b.text).join('');
+    const parsed = extractJSON(raw);
+    if(parsed && parsed.prices && parsed.prices.length) {
+      applyExtractedPrices(parsed.prices);
+    }
+  } catch(e) {
+    console.log('Price extraction failed:', e);
+  } finally {
+    const notice = document.getElementById('price-extract-notice');
+    if(notice) notice.remove();
+  }
+}
+
+function applyExtractedPrices(priceList) {
+  const priceMap = {};
+  priceList.forEach(p => { priceMap[p.ticker.toUpperCase()] = p; });
+
+  let closedCount = 0;
+  const closedTickers = [];
+
+  predictions.forEach(pred => {
+    if(pred.status !== 'open') return;
+    const match = priceMap[pred.ticker.toUpperCase()];
+    if(!match) return;
+
+    const actualPrice = match.price;
+    const pnlDir = match.pnl_direction || 'flat';
+
+    // Determine actual direction relative to the prediction action
+    const action = (pred.action || '').toLowerCase();
+    const isBullish = ['buy','accumulate','add','hold'].some(a => action.includes(a));
+    const isBearish = ['trim','exit','sell','reduce'].some(a => action.includes(a));
+
+    // Compare actual price to target/stop to determine outcome direction
+    let actualDirection = 'partial';
+    const actualNum = parseFloat(actualPrice.replace(/[^0-9.]/g, ''));
+    const targetNum = parseFloat((pred.target || '').replace(/[^0-9.]/g, ''));
+    const stopNum = parseFloat((pred.stop || '').replace(/[^0-9.]/g, ''));
+
+    if(!isNaN(actualNum)) {
+      if(isBullish) {
+        if(!isNaN(targetNum) && actualNum >= targetNum) actualDirection = 'yes';
+        else if(!isNaN(stopNum) && actualNum <= stopNum) actualDirection = 'no';
+        else actualDirection = pnlDir === 'up' ? 'partial' : 'no';
+      } else if(isBearish) {
+        if(!isNaN(targetNum) && actualNum <= targetNum) actualDirection = 'yes';
+        else if(!isNaN(stopNum) && actualNum >= stopNum) actualDirection = 'no';
+        else actualDirection = pnlDir === 'down' ? 'partial' : 'no';
+      }
+    }
+
+    // Auto-close with screenshot as ground truth
+    pred.outcome = {
+      actual_price: actualPrice,
+      actual_direction: actualDirection,
+      trigger_note: `Auto-closed from portfolio screenshot. P&L: ${match.pnl_pct ? match.pnl_pct + '%' : 'not shown'}. Direction: ${pnlDir}.`,
+      ts: new Date().toISOString(),
+      source: 'screenshot'
+    };
+    pred.status = 'closed';
+    pred.scores = scorePrediction(pred);
+    closedCount++;
+    closedTickers.push(pred.ticker);
+  });
+
+  if(closedCount > 0) {
+    savePredictions();
+
+    // Show notification banner in portfolio page
+    showPriceExtractBanner(closedCount, closedTickers);
+
+    // Refresh learn page if active
+    refreshLearnPage();
+    if(document.getElementById('page-learn').classList.contains('active')) {
+      renderScorecard();
+    }
+  }
+}
+
+function showPriceExtractBanner(count, tickers) {
+  // Remove any existing banner
+  const existing = document.getElementById('price-banner');
+  if(existing) existing.remove();
+
+  const banner = document.createElement('div');
+  banner.id = 'price-banner';
+  banner.style.cssText = `
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  `;
+  banner.innerHTML = `
+    <div>
+      <div style="font-size:12px;font-weight:500;color:var(--green);margin-bottom:3px;">
+        📊 ${count} prediction${count > 1 ? 's' : ''} auto-closed from screenshot
+      </div>
+      <div style="font-size:11px;color:var(--muted);">
+        ${tickers.join(', ')} — current prices extracted and scored. View results in Self-Learning → Prediction Log.
+      </div>
+    </div>
+    <button onclick="document.getElementById('price-banner').remove()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;flex-shrink:0;">✕</button>
+  `;
+
+  // Insert before the upload zone in portfolio page
+  const portPage = document.getElementById('page-portfolio');
+  const firstChild = portPage.querySelector('.ph');
+  if(firstChild) firstChild.after(banner);
+}
+
+
+// ════════════════════════════════════════════════════════════
+// SELF-LEARNING MODULE
+// Architecture: walk-forward, human-grounded, anti-echo-chamber
+// ════════════════════════════════════════════════════════════
+
+let predictions = JSON.parse(S.get('predictions') || '[]');
+
+// ── Data model for a prediction record ──
+// { id, ts, source:'scan'|'port', ticker, action, entry, target, stop,
+//   conviction, thesis, sleeve, status:'open'|'closed',
+//   outcome: { actual_price, actual_direction, trigger_note, ts },
+//   scores: { direction:0|1, magnitude:0|1|0.5, trigger:0|1, total:0-3 } }
+
+function savePredictions() {
+  S.set('predictions', JSON.stringify(predictions));
+}
+
+// ── Auto-log from scan results ──
+function autoLogScanPredictions(stocks) {
+  if(!stocks || !stocks.length) return;
+  const ts = new Date().toISOString();
+  let added = 0;
+  stocks.forEach(s => {
+    // Don't re-log same ticker if open prediction exists from last 7 days
+    const recent = predictions.find(p =>
+      p.ticker === s.ticker && p.status === 'open' &&
+      (Date.now() - new Date(p.ts).getTime()) < 7 * 86400000
+    );
+    if(recent) return;
+    predictions.unshift({
+      id: `scan_${s.ticker}_${Date.now()}`,
+      ts, source: 'scan', ticker: s.ticker,
+      action: s.action || 'Buy',
+      entry: s.entry || '', target: s.target || '',
+      stop: s.stop || s.killswitch || '',
+      conviction: s.conviction || 'Tier 2',
+      thesis: s.thesis || '',
+      sleeve: s.sleeve || 'LT',
+      status: 'open', outcome: null, scores: null
+    });
+    added++;
+  });
+  if(added) { savePredictions(); refreshLearnPage(); }
+}
+
+// ── Auto-log from portfolio positions ──
+function autoLogPortPredictions(positions) {
+  if(!positions || !positions.length) return;
+  const ts = new Date().toISOString();
+  let added = 0;
+  positions.forEach(p => {
+    const recentPort = predictions.find(pred =>
+      pred.ticker === p.ticker && pred.source === 'port' && pred.status === 'open' &&
+      (Date.now() - new Date(pred.ts).getTime()) < 7 * 86400000
+    );
+    if(recentPort) return;
+    // Only log non-hold actions — holds are not predictions we can score
+    const action = (p.action || '').toUpperCase();
+    if(action === 'HOLD' || !action) return;
+    predictions.unshift({
+      id: `port_${p.ticker}_${Date.now()}`,
+      ts, source: 'port', ticker: p.ticker,
+      action: p.action || 'Hold',
+      entry: p.entry_price || '',
+      target: p.exit_target || p.exit || '',
+      stop: p.stop || '',
+      conviction: p.priority || 'Med',
+      thesis: p.reasoning || '',
+      sleeve: 'portfolio',
+      status: 'open', outcome: null, scores: null
+    });
+    added++;
+  });
+  if(added) { savePredictions(); refreshLearnPage(); }
+}
+
+// ── Log manual prediction ──
+function logManualPrediction() {
+  const ticker = prompt('Ticker symbol (e.g. AAPL, DBS.SI):');
+  if(!ticker || !ticker.trim()) return;
+  const action = prompt('Predicted action (Buy/Trim/Exit/Hold):') || 'Buy';
+  const target = prompt('Price target:') || '';
+  const stop = prompt('Stop/kill switch:') || '';
+  const thesis = prompt('Thesis (one sentence):') || '';
+  predictions.unshift({
+    id: `manual_${ticker.toUpperCase()}_${Date.now()}`,
+    ts: new Date().toISOString(), source: 'manual',
+    ticker: ticker.toUpperCase().trim(), action, entry: '', target, stop,
+    conviction: 'Manual', thesis, sleeve: 'manual',
+    status: 'open', outcome: null, scores: null
+  });
+  savePredictions();
+  renderLearnLog();
+}
+
+// ── Enter outcome for a prediction ──
+function enterOutcome(id) {
+  const pred = predictions.find(p => p.id === id);
+  if(!pred) return;
+  const actualPrice = prompt(`${pred.ticker} — Enter actual price reached (or current price):`);
+  if(!actualPrice) return;
+  const direction = prompt('Did price move in predicted direction? (yes/no/partial):') || 'no';
+  const trigger = prompt('What triggered the move? (or "thesis unchanged" / "wrong — explain"):') || '';
+  pred.outcome = {
+    actual_price: actualPrice,
+    actual_direction: direction,
+    trigger_note: trigger,
+    ts: new Date().toISOString()
+  };
+  pred.status = 'closed';
+  // Score it
+  pred.scores = scorePrediction(pred);
+  savePredictions();
+  renderLearnLog();
+  renderScorecard();
+}
+
+// ── Scoring logic — walk-forward, 3 dimensions ──
+function scorePrediction(pred) {
+  const dir = (pred.outcome.actual_direction || '').toLowerCase();
+  const action = (pred.action || '').toLowerCase();
+
+  // Direction score: did price move the way the action implied?
+  let direction = 0;
+  const bullishActions = ['buy','accumulate','add','hold'];
+  const bearishActions = ['trim','exit','sell','reduce'];
+  if((bullishActions.some(a=>action.includes(a)) && (dir.includes('yes')||dir.includes('up')||dir.includes('partial'))) ||
+     (bearishActions.some(a=>action.includes(a)) && (dir.includes('yes')||dir.includes('down')||dir.includes('partial')))) {
+    direction = dir.includes('partial') ? 0.5 : 1;
+  }
+
+  // Magnitude score: did price reach target or stop?
+  let magnitude = 0;
+  if(pred.target && pred.outcome.actual_price) {
+    const targetNum = parseFloat(pred.target.replace(/[^0-9.]/g,''));
+    const actualNum = parseFloat(pred.outcome.actual_price.replace(/[^0-9.]/g,''));
+    if(!isNaN(targetNum) && !isNaN(actualNum) && targetNum > 0) {
+      const pct = Math.abs(actualNum - targetNum) / targetNum;
+      magnitude = pct <= 0.05 ? 1 : pct <= 0.15 ? 0.5 : 0;
+    }
+  }
+
+  // Trigger score: was the thesis / trigger correct?
+  const trigNote = (pred.outcome.trigger_note || '').toLowerCase();
+  const trigger = trigNote.includes('thesis') || trigNote.includes('correct') || trigNote.includes('yes') ? 1
+    : trigNote.includes('partial') || trigNote.includes('partly') ? 0.5 : 0;
+
+  const total = direction + magnitude + trigger;
+  return { direction, magnitude, trigger, total };
+}
+
+// ── Render prediction log ──
+function renderLearnLog() {
+  const open = predictions.filter(p => p.status === 'open');
+  const closed = predictions.filter(p => p.status === 'closed');
+
+  const openEl = document.getElementById('learn-open-list');
+  const closedEl = document.getElementById('learn-closed-list');
+
+  if(!open.length) {
+    openEl.innerHTML = '<div style="color:var(--muted);font-size:12px;padding:12px 0;">No open predictions. Run a Stock Scanner or Portfolio Advisor analysis to auto-log predictions.</div>';
+  } else {
+    openEl.innerHTML = open.map(p => `
+      <div class="signal-card" style="margin-bottom:8px;">
+        <div class="signal-header" style="margin-bottom:6px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <strong style="font-size:13px;">${p.ticker}</strong>
+            <span class="badge b-${p.source==='scan'?'blue':p.source==='manual'?'amber':'teal'}" style="font-size:10px;">${p.source}</span>
+            <span class="badge b-muted" style="font-size:10px;">${p.sleeve}</span>
+          </div>
+          ${actionPill(p.action)}
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">
+          <div style="font-size:11px;"><span style="color:var(--muted);">Target: </span><span style="font-family:'Geist Mono',monospace;">${p.target||'—'}</span></div>
+          <div style="font-size:11px;"><span style="color:var(--muted);">Stop: </span><span style="font-family:'Geist Mono',monospace;">${p.stop||'—'}</span></div>
+          <div style="font-size:11px;"><span style="color:var(--muted);">Conviction: </span>${p.conviction}</div>
+        </div>
+        ${p.thesis ? `<div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:8px;">${p.thesis.slice(0,120)}</div>` : ''}
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:10px;color:var(--muted);font-family:'Geist Mono',monospace;">${new Date(p.ts).toLocaleDateString('en-SG')} · ${Math.floor((Date.now()-new Date(p.ts).getTime())/86400000)}d ago</span>
+          <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="enterOutcome('${p.id}')">Enter outcome</button>
+        </div>
+      </div>`).join('');
+  }
+
+  if(!closed.length) {
+    closedEl.innerHTML = '<div style="color:var(--muted);font-size:12px;padding:12px 0;">No closed predictions yet.</div>';
+  } else {
+    closedEl.innerHTML = closed.slice(0,10).map(p => {
+      const score = p.scores || {total:0};
+      const scoreColor = score.total >= 2.5 ? 'var(--green)' : score.total >= 1.5 ? 'var(--amber)' : 'var(--red)';
+      const scoreLabel = score.total >= 2.5 ? 'Strong' : score.total >= 1.5 ? 'Partial' : 'Miss';
+      return `<div class="signal-card" style="margin-bottom:8px;opacity:0.8;">
+        <div class="signal-header" style="margin-bottom:6px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <strong style="font-size:13px;">${p.ticker}</strong>
+            ${actionPill(p.action)}
+          </div>
+          <span style="font-size:12px;font-weight:500;color:${scoreColor};">${scoreLabel} (${score.total}/3)</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px;">
+          <div style="font-size:11px;"><span style="color:var(--muted);">Direction: </span><span style="color:${score.direction>0?'var(--green)':'var(--red)'};">${score.direction===1?'✓':score.direction===0.5?'~':'✗'}</span></div>
+          <div style="font-size:11px;"><span style="color:var(--muted);">Magnitude: </span><span style="color:${score.magnitude>0?'var(--green)':'var(--red)'};">${score.magnitude===1?'✓':score.magnitude===0.5?'~':'✗'}</span></div>
+          <div style="font-size:11px;"><span style="color:var(--muted);">Trigger: </span><span style="color:${score.trigger>0?'var(--green)':'var(--red)'};">${score.trigger===1?'✓':score.trigger===0.5?'~':'✗'}</span></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);">${p.outcome.trigger_note.slice(0,100)} · actual: ${p.outcome.actual_price}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+// ── Render scorecard ──
+function renderScorecard() {
+  const closed = predictions.filter(p => p.status === 'closed' && p.scores);
+  const el = document.getElementById('learn-scorecard');
+
+  document.getElementById('ls-total').textContent = predictions.length;
+
+  if(!closed.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:12px;padding:16px 0;">No closed predictions yet. Enter outcomes in the Prediction Log tab.</div>';
+    document.getElementById('ls-dir').textContent = '—';
+    document.getElementById('ls-trigger').textContent = '—';
+    document.getElementById('ls-streak').textContent = '—';
+    return;
+  }
+
+  const dirAcc = (closed.reduce((s,p) => s + (p.scores.direction||0), 0) / closed.length * 100).toFixed(0) + '%';
+  const trigAcc = (closed.reduce((s,p) => s + (p.scores.trigger||0), 0) / closed.length * 100).toFixed(0) + '%';
+  document.getElementById('ls-dir').textContent = dirAcc;
+  document.getElementById('ls-trigger').textContent = trigAcc;
+
+  // Streak
+  let streak = 0;
+  for(const p of closed) {
+    if((p.scores.total||0) >= 2) streak++; else break;
+  }
+  document.getElementById('ls-streak').textContent = streak + ' ✓';
+
+  // Source breakdown
+  const scanClosed = closed.filter(p=>p.source==='scan');
+  const portClosed = closed.filter(p=>p.source==='port');
+  const scanDir = scanClosed.length ? (scanClosed.reduce((s,p)=>s+(p.scores.direction||0),0)/scanClosed.length*100).toFixed(0)+'%' : '—';
+  const portDir = portClosed.length ? (portClosed.reduce((s,p)=>s+(p.scores.direction||0),0)/portClosed.length*100).toFixed(0)+'%' : '—';
+
+  // Failure pattern analysis
+  const misses = closed.filter(p => (p.scores.total||0) < 1.5);
+  const triggerMisses = closed.filter(p => (p.scores.trigger||0) === 0);
+  const magMisses = closed.filter(p => (p.scores.magnitude||0) === 0);
+
+  el.innerHTML = `
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="card"><div class="card-hd">By source</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--muted);">Scanner predictions</span><span>${scanClosed.length} closed · dir ${scanDir}</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--muted);">Portfolio predictions</span><span>${portClosed.length} closed · dir ${portDir}</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="card-hd">Failure patterns</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--muted);">Wrong direction</span><span style="color:${misses.length>closed.length*0.4?'var(--red)':'var(--text)'};">${misses.length}/${closed.length}</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--muted);">Trigger wrong</span><span style="color:${triggerMisses.length>closed.length*0.5?'var(--red)':'var(--text)'};">${triggerMisses.length}/${closed.length}</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--muted);">Target missed</span><span>${magMisses.length}/${closed.length}</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);padding:8px 10px;background:var(--bg3);border-radius:8px;line-height:1.6;">
+      Anti-overfitting note: scores use a rolling walk-forward window. High direction accuracy on fewer than 10 predictions is not statistically meaningful — avoid adjusting prompts until you have 10+ closed predictions.
+    </div>`;
+}
+
+// ── Run reflection analysis ──
+async function runReflection() {
+  const minPreds = parseInt(document.getElementById('reflectMinPreds').value);
+  const window = parseInt(document.getElementById('reflectWindow').value);
+  const closed = predictions.filter(p => p.status === 'closed' && p.scores);
+  const windowedClosed = window > 0 ? closed.slice(0, window) : closed;
+
+  if(windowedClosed.length < minPreds) {
+    document.getElementById('reflectResult').textContent = `Need at least ${minPreds} closed predictions. You have ${windowedClosed.length}. Enter more outcomes in the Prediction Log tab.`;
+    return;
+  }
+
+  const btn = document.getElementById('reflectBtn');
+  btn.disabled = true;
+  document.getElementById('reflectStatus').innerHTML = '<span class="spin"></span> Analysing patterns…';
+
+  // Build prediction history for the prompt — stripped to essentials only
+  const predSummary = windowedClosed.map(p => ({
+    ticker: p.ticker,
+    source: p.source,
+    action: p.action,
+    target: p.target,
+    stop: p.stop,
+    conviction: p.conviction,
+    thesis: p.thesis ? p.thesis.slice(0,80) : '',
+    sleeve: p.sleeve,
+    days_held: Math.floor((new Date(p.outcome.ts) - new Date(p.ts)) / 86400000),
+    actual_price: p.outcome.actual_price,
+    actual_direction: p.outcome.actual_direction,
+    trigger_note: p.outcome.trigger_note,
+    dir_score: p.scores.direction,
+    mag_score: p.scores.magnitude,
+    trigger_score: p.scores.trigger,
+    total: p.scores.total
+  }));
+
+  const avgTotal = (windowedClosed.reduce((s,p)=>s+(p.scores.total||0),0)/windowedClosed.length).toFixed(2);
+  const dirAccPct = (windowedClosed.reduce((s,p)=>s+(p.scores.direction||0),0)/windowedClosed.length*100).toFixed(0);
+  const trigAccPct = (windowedClosed.reduce((s,p)=>s+(p.scores.trigger||0),0)/windowedClosed.length*100).toFixed(0);
+
+  const reflectPrompt = `You are a quantitative research analyst conducting a systematic review of an investment analysis system's prediction record. Your job is to identify genuine failure patterns and generate specific, testable prompt improvements.
+
+PREDICTION RECORD (${windowedClosed.length} closed predictions, walk-forward sequence):
+${JSON.stringify(predSummary, null, 2).slice(0, 6000)}
+
+AGGREGATE STATISTICS:
+- Average score: ${avgTotal}/3
+- Direction accuracy: ${dirAccPct}%
+- Trigger accuracy: ${trigAccPct}%
+
+TASK: Conduct a structured reflection analysis using these four sections:
+
+## 1. FAILURE PATTERN IDENTIFICATION
+Identify the 2-3 most consistent failure patterns from the data. Be specific — name the tickers, the prediction, what actually happened, and why it failed. Avoid generic statements. If data is insufficient for a pattern (fewer than 4 similar cases), say so explicitly.
+
+## 2. WHAT THE SYSTEM IS GETTING RIGHT
+Identify 1-2 prediction types that are working well (direction correct + trigger correct). What characteristics make these predictions reliable?
+
+## 3. ANTI-OVERFITTING CHECK
+Flag any patterns that appear in fewer than 4 predictions — these are noise, not signal. Specifically warn against adjusting prompts based on single-event failures. Market regime: are these failures consistent across different market conditions, or clustered in one period?
+
+## 4. SPECIFIC PROMPT IMPROVEMENTS (maximum 3)
+For each improvement: (a) what specific failure pattern it addresses, (b) the exact change to the analysis prompt, (c) what evidence threshold to require before trusting this improvement.
+
+Format each improvement as:
+IMPROVEMENT [N]: [title]
+Pattern: [what failure this fixes]
+Change: [exact prompt language to add or modify]
+Confidence threshold: [how many more predictions needed to validate]
+
+## 5. WHAT NOT TO CHANGE
+List 1-2 aspects of the current analysis approach that should NOT be changed based on this data, with reasoning.
+
+Be rigorous and conservative. An analysis system that over-adjusts to recent predictions will perform worse over time than one that maintains discipline.`;
+
+  const text = await callClaude(
+    [{role:'user', content:reflectPrompt}],
+    document.getElementById('reflectResult'),
+    document.getElementById('reflectStatus'),
+    btn
+  );
+
+  if(text) {
+    // Extract and display any structured improvements
+    renderLearnInsights(text, windowedClosed.length, avgTotal);
+    // Save reflection record
+    const reflections = JSON.parse(S.get('reflections') || '[]');
+    reflections.unshift({ ts: new Date().toISOString(), text, predCount: windowedClosed.length, avgScore: avgTotal });
+    if(reflections.length > 10) reflections.pop();
+    S.set('reflections', JSON.stringify(reflections));
+  }
+}
+
+// ── Render insight cards from reflection ──
+function renderLearnInsights(text, predCount, avgScore) {
+  const el = document.getElementById('learnInsights');
+  const improvements = [];
+  const regex = /IMPROVEMENT \[(\d+)\]: ([^\n]+)\nPattern: ([^\n]+)\nChange: ([^\n]+)\nConfidence threshold: ([^\n]+)/g;
+  let m;
+  while((m = regex.exec(text)) !== null) {
+    improvements.push({ n: m[1], title: m[2], pattern: m[3], change: m[4], threshold: m[5] });
+  }
+
+  if(!improvements.length) { el.innerHTML = ''; return; }
+
+  el.innerHTML = `<div class="card-hd" style="margin-bottom:10px;">Extracted prompt improvements</div>` +
+    improvements.map(imp => `
+      <div class="signal-card" style="margin-bottom:8px;border-color:rgba(184,240,64,.2);">
+        <div class="signal-header" style="margin-bottom:6px;">
+          <div style="font-size:12px;font-weight:500;color:var(--text);">${imp.n}. ${imp.title}</div>
+          <span class="badge b-lime" style="font-size:10px;">Improvement</span>
+        </div>
+        <div style="display:grid;gap:6px;">
+          <div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;">Addresses</div><div style="font-size:12px;">${imp.pattern}</div></div>
+          <div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;">Prompt change</div><div style="font-size:12px;font-style:italic;color:var(--lime);">"${imp.change}"</div></div>
+          <div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;">Validate after</div><div style="font-size:12px;color:var(--amber);">${imp.threshold}</div></div>
+        </div>
+      </div>`).join('') +
+    `<div style="font-size:11px;color:var(--muted);padding:8px 10px;background:var(--bg3);border-radius:8px;line-height:1.6;margin-top:6px;">
+      Based on ${predCount} predictions · avg score ${avgScore}/3 · Generated ${new Date().toLocaleDateString('en-SG')}
+    </div>`;
+}
+
+// ── Tab switching ──
+function switchLearnTab(tab, el) {
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['log','score','reflect'].forEach(t => {
+    document.getElementById('lt-'+t).style.display = t===tab ? 'block' : 'none';
+  });
+  if(tab === 'score') renderScorecard();
+  if(tab === 'log') renderLearnLog();
+}
+
+// ── Refresh all learn page elements ──
+function refreshLearnPage() {
+  const activePage = document.getElementById('page-learn');
+  if(activePage && activePage.classList.contains('active')) {
+    renderLearnLog();
+  }
+}
+
+// ── Init on load ──
+const origOnload = window.onload;
+window.onload = () => {
+  if(origOnload) origOnload();
+  predictions = JSON.parse(S.get('predictions') || '[]');
+};
+
+
+// ════════════════════════════════════════════════════════
+// GITHUB AUTO-SYNC — cross-device context persistence
+// Pushes portfolio_context.json after every scan / portfolio run
+// ════════════════════════════════════════════════════════
+
+function saveGhSettings(){
+  S.set('ghToken', document.getElementById('ghToken').value.trim());
+  S.set('ghRepo', document.getElementById('ghRepo').value.trim());
+}
+function getGhSettings(){ return {token:S.get('ghToken')||'', repo:S.get('ghRepo')||''}; }
+
+async function testGhSync(){
+  const {token,repo}=getGhSettings();
+  const el=document.getElementById('ghSyncStatus');
+  if(!token||!repo){el.textContent='Enter token and repo first.';el.style.color='var(--red)';return;}
+  el.innerHTML='<span class="spin"></span> Testing…';
+  try{
+    const r=await fetch(`https://api.github.com/repos/${repo}`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(r.ok){const d=await r.json();el.textContent=`✓ Connected to ${d.full_name}`;el.style.color='var(--green)';}
+    else{el.textContent=`✗ Error ${r.status} — check token and repo name`;el.style.color='var(--red)';}
+  }catch(e){el.textContent='✗ '+e.message;el.style.color='var(--red)';}
+}
+
+async function pushContextToGitHub(manual=false){
+  const {token,repo}=getGhSettings();
+  if(!token||!repo){if(manual)alert('Set your GitHub token and repo in Settings first.');return;}
+  const portPositions=JSON.parse(S.get('lastPortPositions')||'[]');
+  const scanStocks=JSON.parse(S.get('lastScanStocks')||'[]');
+  if(!portPositions.length&&!scanStocks.length){if(manual)alert('No portfolio or scan data yet.');return;}
+  const snapshot={
+    exported:new Date().toISOString(),
+    portfolio:{updated:S.get('lastPortTs')||'',summary:S.get('lastPortSummary')||'',
+      positions:portPositions.map(p=>({ticker:p.ticker,action:p.action,priority:p.priority,
+        exit_target:p.exit_target||p.exit||'',stop:p.stop||'',reasoning:(p.reasoning||'').slice(0,120)}))},
+    watchlist:{updated:S.get('lastScanTs')||'',macro:S.get('lastScanMacro')||'',
+      stocks:scanStocks.map(s=>({ticker:s.ticker,sleeve:s.sleeve||'LT',action:s.action||'Buy',
+        entry:s.entry||'',target:s.target||'',conviction:s.conviction||''}))}
+  };
+  const contentB64=btoa(unescape(encodeURIComponent(JSON.stringify(snapshot,null,2))));
+  const statusEl=document.getElementById('ghSyncStatus');
+  if(manual&&statusEl){statusEl.innerHTML='<span class="spin"></span> Pushing…';statusEl.style.color='var(--muted)';}
+  try{
+    let sha=null;
+    const get=await fetch(`https://api.github.com/repos/${repo}/contents/portfolio_context.json`,
+      {headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(get.ok){const ex=await get.json();sha=ex.sha;}
+    const put=await fetch(`https://api.github.com/repos/${repo}/contents/portfolio_context.json`,{
+      method:'PUT',
+      headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+      body:JSON.stringify({message:`Update context — ${new Date().toLocaleDateString('en-SG')}`,content:contentB64,...(sha?{sha}:{})})
+    });
+    if(put.ok){
+      S.set('lastGhPush',new Date().toISOString());
+      if(manual&&statusEl){statusEl.textContent=`✓ Pushed — ${portPositions.length} positions, ${scanStocks.length} watchlist`;statusEl.style.color='var(--green)';setTimeout(()=>{if(statusEl)statusEl.textContent='';},5000);}
+      console.log('GitHub sync: pushed portfolio_context.json');
+    } else {const err=await put.json();throw new Error(err.message||put.status);}
+  }catch(e){console.log('GitHub sync failed:',e.message);if(manual&&statusEl){statusEl.textContent='✗ '+e.message;statusEl.style.color='var(--red)';}}
+}
+
+// ════════════════════════════════════════════════════════
+// GITHUB BIDIRECTIONAL SYNC
+// syncToGitHub()   — push ALL local data → GitHub (one file)
+// loadFromGitHub() — pull ALL data ← GitHub → local storage
+// Also auto-pushes portfolio_context.json silently after scans
+// ════════════════════════════════════════════════════════
+
+// Keys to sync — everything except API keys and tokens (stay local for security)
+const SYNC_KEYS = [
+  'lastPortPositions','lastPortSummary','lastPortTs',
+  'lastScanStocks','lastScanMacro','lastScanTs',
+  'predictions','reflections',
+  'intelFeed','intelCount','lastIntelRun',
+  'alertLog','alertCount',
+  'riskNote','excludes','watchlist',
+  'lastUpdateCheck','updateResult'
+];
+
+function saveGhSettings(){
+  S.set('ghToken', document.getElementById('ghToken').value.trim());
+  S.set('ghRepo', document.getElementById('ghRepo').value.trim());
+}
+function getGhSettings(){ return {token:S.get('ghToken')||'', repo:S.get('ghRepo')||''}; }
+
+function updateSyncLabel(){
+  const el = document.getElementById('ghLastSync');
+  if(!el) return;
+  const last = S.get('lastGhPush');
+  if(last) el.textContent = 'Last synced: ' + new Date(last).toLocaleString('en-SG',{dateStyle:'short',timeStyle:'short'});
+}
+
+async function testGhSync(){
+  const {token,repo}=getGhSettings();
+  const el=document.getElementById('ghSyncStatus');
+  if(!token||!repo){el.textContent='Enter token and repo first.';el.style.color='var(--red)';return;}
+  el.innerHTML='<span class="spin"></span> Testing…';
+  try{
+    const r=await fetch(`https://api.github.com/repos/${repo}`,{
+      headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}
+    });
+    if(r.ok){const d=await r.json();el.textContent=`✓ Connected to ${d.full_name}`;el.style.color='var(--green)';}
+    else{el.textContent=`✗ Error ${r.status}`;el.style.color='var(--red)';}
+  }catch(e){el.textContent='✗ '+e.message;el.style.color='var(--red)';}
+}
+
+// ── Full sync TO GitHub ──
+async function syncToGitHub(){
+  const {token,repo}=getGhSettings();
+  const statusEl=document.getElementById('ghSyncStatus');
+  if(!token||!repo){
+    statusEl.textContent='Set GitHub token and repo in Settings first.';
+    statusEl.style.color='var(--red)'; return;
+  }
+  statusEl.innerHTML='<span class="spin"></span> Syncing…'; statusEl.style.color='var(--muted)';
+
+  // Bundle all sync keys into one file
+  const bundle = { _version:1, _ts: new Date().toISOString(), _device: navigator.userAgent.includes('iPhone')||navigator.userAgent.includes('iPad') ? 'mobile' : 'desktop' };
+  SYNC_KEYS.forEach(k => { const v=S.get(k); if(v!==null) bundle[k]=v; });
+
+  // Also include portfolio_context sub-object for GitHub Actions briefing compatibility
+  const portPositions=JSON.parse(S.get('lastPortPositions')||'[]');
+  const scanStocks=JSON.parse(S.get('lastScanStocks')||'[]');
+  bundle._portfolio_context = {
+    exported: bundle._ts,
+    portfolio:{updated:S.get('lastPortTs')||'',summary:S.get('lastPortSummary')||'',
+      positions:portPositions.map(p=>({ticker:p.ticker,action:p.action,priority:p.priority,
+        exit_target:p.exit_target||p.exit||'',stop:p.stop||'',reasoning:(p.reasoning||'').slice(0,120)}))},
+    watchlist:{updated:S.get('lastScanTs')||'',macro:S.get('lastScanMacro')||'',
+      stocks:scanStocks.map(s=>({ticker:s.ticker,sleeve:s.sleeve||'LT',action:s.action||'Buy',
+        entry:s.entry||'',target:s.target||'',conviction:s.conviction||''}))}
+  };
+
+  const contentB64=btoa(unescape(encodeURIComponent(JSON.stringify(bundle,null,2))));
+
+  try{
+    // Get current SHA if file exists
+    let sha=null;
+    const get=await fetch(`https://api.github.com/repos/${repo}/contents/vantage_sync.json`,
+      {headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(get.ok){const ex=await get.json();sha=ex.sha;}
+
+    const put=await fetch(`https://api.github.com/repos/${repo}/contents/vantage_sync.json`,{
+      method:'PUT',
+      headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+      body:JSON.stringify({message:`Vantage sync — ${new Date().toLocaleDateString('en-SG')}`,content:contentB64,...(sha?{sha}:{})})
+    });
+    if(!put.ok){const e=await put.json();throw new Error(e.message||put.status);}
+
+    // Also push portfolio_context.json separately for GitHub Actions briefing
+    await pushPortfolioContextFile(token, repo, bundle._portfolio_context);
+
+    S.set('lastGhPush',new Date().toISOString());
+    updateSyncLabel();
+    const positions = portPositions.length;
+    const preds = JSON.parse(S.get('predictions')||'[]').length;
+    statusEl.textContent=`✓ Synced — ${positions} positions, ${preds} predictions, ${scanStocks.length} watchlist`;
+    statusEl.style.color='var(--green)';
+    setTimeout(()=>{statusEl.textContent='';},6000);
+  }catch(e){
+    statusEl.textContent='✗ '+e.message;
+    statusEl.style.color='var(--red)';
+  }
+}
+
+// ── Full sync FROM GitHub ──
+async function loadFromGitHub(){
+  const {token,repo}=getGhSettings();
+  const statusEl=document.getElementById('ghSyncStatus');
+  if(!token||!repo){
+    statusEl.textContent='Set GitHub token and repo in Settings first.';
+    statusEl.style.color='var(--red)'; return;
+  }
+  statusEl.innerHTML='<span class="spin"></span> Loading from GitHub…'; statusEl.style.color='var(--muted)';
+
+  try{
+    const get=await fetch(`https://api.github.com/repos/${repo}/contents/vantage_sync.json`,{
+      headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}
+    });
+    if(!get.ok) throw new Error(get.status===404 ? 'No sync file found — sync to GitHub from another device first.' : `Error ${get.status}`);
+    const meta=await get.json();
+    const raw=decodeURIComponent(escape(atob(meta.content.replace(/\n/g,''))));
+    const bundle=JSON.parse(raw);
+
+    // Show what we're about to load and confirm
+    const ts = bundle._ts ? new Date(bundle._ts).toLocaleString('en-SG',{dateStyle:'short',timeStyle:'short'}) : 'unknown';
+    const device = bundle._device || 'unknown';
+    const portCount = JSON.parse(bundle.lastPortPositions||'[]').length;
+    const predCount = JSON.parse(bundle.predictions||'[]').length;
+
+    const confirm = window.confirm(
+      `Load sync from ${device} (${ts})?\n\n` +
+      `• ${portCount} portfolio positions\n` +
+      `• ${predCount} predictions\n` +
+      `• Intel feed, scorecard, watchlist\n\n` +
+      `This will replace your current local data on this device.`
+    );
+    if(!confirm){statusEl.textContent='Cancelled.';statusEl.style.color='var(--muted)';return;}
+
+    // Restore all keys (skip nulls and metadata keys)
+    let restored=0;
+    SYNC_KEYS.forEach(k=>{
+      if(bundle[k]!==undefined&&bundle[k]!==null){
+        localStorage.setItem('vp_'+k, typeof bundle[k]==='string' ? bundle[k] : JSON.stringify(bundle[k]));
+        restored++;
+      }
+    });
+
+    // Reload in-memory state
+    predictions = JSON.parse(S.get('predictions')||'[]');
+    intelFeed = JSON.parse(S.get('intelFeed')||'[]');
+    intelCount = S.get('intelCount')||0;
+    alertLog = JSON.parse(S.get('alertLog')||'[]');
+    alertCount = S.get('alertCount')||0;
+
+    S.set('lastGhPush', new Date().toISOString());
+    updateSyncLabel();
+    updateIntelStats();
+
+    statusEl.textContent=`✓ Loaded — ${portCount} positions, ${predCount} predictions restored`;
+    statusEl.style.color='var(--green)';
+    setTimeout(()=>{statusEl.textContent='';},6000);
+
+    // Refresh visible page
+    const activePage = document.querySelector('.page.active');
+    if(activePage){
+      const id = activePage.id.replace('page-','');
+      if(id==='intel') renderIntelFeed();
+      if(id==='learn') { renderLearnLog(); renderScorecard(); }
+    }
+  }catch(e){
+    statusEl.textContent='✗ '+e.message;
+    statusEl.style.color='var(--red)';
+  }
+}
+
+// ── Silent background push of portfolio_context.json for GitHub Actions ──
+async function pushPortfolioContextFile(token, repo, ctxObj){
+  const contentB64=btoa(unescape(encodeURIComponent(JSON.stringify(ctxObj,null,2))));
+  let sha=null;
+  const get=await fetch(`https://api.github.com/repos/${repo}/contents/portfolio_context.json`,
+    {headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+  if(get.ok){const ex=await get.json();sha=ex.sha;}
+  await fetch(`https://api.github.com/repos/${repo}/contents/portfolio_context.json`,{
+    method:'PUT',
+    headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+    body:JSON.stringify({message:`Update portfolio context — ${new Date().toLocaleDateString('en-SG')}`,content:contentB64,...(sha?{sha}:{})})
+  });
+}
+
+// ── Silent auto-push after scan/portfolio runs ──
+async function pushContextToGitHub(manual=false){
+  const {token,repo}=getGhSettings();
+  if(!token||!repo){if(manual)alert('Set your GitHub token and repo in Settings first.');return;}
+  const portPositions=JSON.parse(S.get('lastPortPositions')||'[]');
+  const scanStocks=JSON.parse(S.get('lastScanStocks')||'[]');
+  if(!portPositions.length&&!scanStocks.length){if(manual)alert('No data yet.');return;}
+  const ctx={
+    exported:new Date().toISOString(),
+    portfolio:{updated:S.get('lastPortTs')||'',summary:S.get('lastPortSummary')||'',
+      positions:portPositions.map(p=>({ticker:p.ticker,action:p.action,priority:p.priority,
+        exit_target:p.exit_target||p.exit||'',stop:p.stop||'',reasoning:(p.reasoning||'').slice(0,120)}))},
+    watchlist:{updated:S.get('lastScanTs')||'',macro:S.get('lastScanMacro')||'',
+      stocks:scanStocks.map(s=>({ticker:s.ticker,sleeve:s.sleeve||'LT',action:s.action||'Buy',
+        entry:s.entry||'',target:s.target||'',conviction:s.conviction||''}))}
+  };
+  try{
+    await pushPortfolioContextFile(token, repo, ctx);
+    S.set('lastGhPush',new Date().toISOString());
+    updateSyncLabel();
+    console.log('Auto-synced portfolio_context.json');
+  }catch(e){console.log('Auto-sync failed:',e.message);}
+}
+
+</script>
+</body>
+</html>
