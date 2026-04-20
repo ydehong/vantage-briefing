@@ -1,6 +1,6 @@
 {
   "_version": 1,
-  "_ts": "2026-04-20T15:18:02.681Z",
+  "_ts": "2026-04-20T15:57:04.593Z",
   "_device": "desktop",
   "lastPortPositions": "[{\"ticker\":\"SNDK\",\"action\":\"TRIM\",\"reasoning\":\"Parabolic move, negative earnings, NAND is cyclical, and Nasdaq-100 inclusion is a sell-the-news risk. 287% YTD gain, loss-making company with -$1.64B losses in FY2025, consensus price target of $621.59 implies 32.51% downside from current price.\",\"entry_price\":\"\",\"exit_target\":\"$920–$965 (trim now), full exit if earnings Apr 30 disappoint\",\"stop\":\"$780 hard stop (15% drawdown from current); exit remainder if breaks below $800\",\"priority\":\"High\"},{\"ticker\":\"PLTR\",\"action\":\"HOLD\",\"reasoning\":\"Down 30%+ from ATH but AI contract pipeline remains intact; earnings will be the catalyst. Trading at 164% premium to Morningstar fair value but AI/defense moat is real. Q1 earnings imminent.\",\"entry_price\":\"\",\"exit_target\":\"$170–180 (long-term); short-term reassess post-earnings\",\"stop\":\"$130 (key support level at $125)\",\"priority\":\"Med\"},{\"ticker\":\"MA\",\"action\":\"BUY MORE\",\"reasoning\":\"Trading 13% below ATH with 25%+ analyst upside; best value/quality combo in the portfolio. Durable moat, 64% EBITDA margin, earnings Apr 30. Average 12-month price target $654.66.\",\"entry_price\":\"\",\"exit_target\":\"$620–$650 (2–3yr horizon)\",\"stop\":\"$480 (52-week support)\",\"priority\":\"Med\"},{\"ticker\":\"MSFT\",\"action\":\"HOLD\",\"reasoning\":\"Azure + AI Copilot embedded across enterprise; earnings catalyst ahead; deeply below ATH = value window. 24% off ATH, consensus Strong Buy with 12-month price target of $584.24.\",\"entry_price\":\"\",\"exit_target\":\"$520–$540 (12–18mo)\",\"stop\":\"$395 (break below $390 signals structural rejection)\",\"priority\":\"Low\"},{\"ticker\":\"META\",\"action\":\"HOLD\",\"reasoning\":\"15% below ATH, high margins, AI ad monetization intact; short-term dip on reality check is buying opportunity not exit. Earnings Apr 29 is the critical event. EBITDA margin 50.70%.\",\"entry_price\":\"\",\"exit_target\":\"$760–$780 (post-earnings, 3–6mo)\",\"stop\":\"$625 (close below $620 key chart support)\",\"priority\":\"Med\"},{\"ticker\":\"CRM\",\"action\":\"HOLD\",\"reasoning\":\"Agentforce AI narrative is real, earnings June 3, consensus upside is 53%; patient value case developing. Marginally underwater, bounced hard from lows, don't cut on a bounce. Consensus price target $278.74.\",\"entry_price\":\"\",\"exit_target\":\"$250+ (18mo–2yr)\",\"stop\":\"$168 (break below $163 52-week low)\",\"priority\":\"Med\"}]",
   "lastPortSummary": "",
@@ -90,7 +90,7 @@
   "lastUpdateCheck": 1776694156220,
   "updateResult": "no_update",
   "_portfolio_context": {
-    "exported": "2026-04-20T15:18:02.681Z",
+    "exported": "2026-04-20T15:57:04.593Z",
     "portfolio": {
       "updated": "2026-04-20T15:15:42.976Z",
       "summary": "",
