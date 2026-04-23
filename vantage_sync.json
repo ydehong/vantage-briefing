@@ -1,6 +1,6 @@
 {
   "_version": 1,
-  "_ts": "2026-04-23T05:54:09.601Z",
+  "_ts": "2026-04-23T05:58:37.558Z",
   "_device": "desktop",
   "lastPortPositions": "[{\"ticker\":\"SNDK\",\"action\":\"TRIM\",\"reasoning\":\"At +43%+ from entry and 2.1 beta with earnings due Apr 30, trim ~30% of position to lock gains. Closed at $979.07 on April 22, up +8.37% in single session. BofA raised price target to $1,080 with Buy rating. High volatility (9.53%) and beta of 2.10 warrant profit-taking.\",\"entry_price\":\"$672.57\",\"exit_target\":\"$1,000–$1,050\",\"stop\":\"$870\",\"priority\":\"High\"}]",
   "lastPortSummary": "Portfolio review as of April 23, 2026 with live pricing data. SNDK is primary recommendation with trim action to lock in substantial gains before earnings. Position shows strong performance (+43.6%) but elevated volatility warrants selective profit-taking.",
@@ -90,7 +90,7 @@
   "lastUpdateCheck": 1776694156220,
   "updateResult": "no_update",
   "_portfolio_context": {
-    "exported": "2026-04-23T05:54:09.601Z",
+    "exported": "2026-04-23T05:58:37.558Z",
     "portfolio": {
       "updated": "2026-04-23T05:54:05.351Z",
       "summary": "Portfolio review as of April 23, 2026 with live pricing data. SNDK is primary recommendation with trim action to lock in substantial gains before earnings. Position shows strong performance (+43.6%) but elevated volatility warrants selective profit-taking.",
