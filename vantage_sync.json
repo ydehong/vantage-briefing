@@ -1,6 +1,6 @@
 {
   "_version": 1,
-  "_ts": "2026-04-23T10:21:16.237Z",
+  "_ts": "2026-04-23T10:23:12.472Z",
   "_device": "desktop",
   "lastPortPositions": "[{\"ticker\":\"SNDK\",\"action\":\"TRIM\",\"reasoning\":\"At +43%+ from entry and 2.1 beta with earnings due Apr 30, trim ~30% of position to lock gains. Closed at $979.07 on April 22, driven by rising NAND prices and AI data-center storage demand.\",\"entry_price\":\"$672.57\",\"exit_target\":\"$1,050+\",\"stop\":\"$870\",\"priority\":\"High\"}]",
   "lastPortSummary": "Portfolio review as of April 23, 2026 with live price updates. SNDK showing strongest performance at +43.6% with high volatility (beta 2.1). UNH up +14.5% on strong Q1 beat. MELI down -6.9%. AMD stable at +29.7%. ETFs (CSPX, QQQM) showing modest +2.3% gains. Most large-cap tech positions showing single-digit to low double-digit gains. NFLX showing wide range post-earnings (+7-25%).",
@@ -112,7 +112,7 @@
   "lastUpdateCheck": 1776694156220,
   "updateResult": "no_update",
   "_portfolio_context": {
-    "exported": "2026-04-23T10:21:16.237Z",
+    "exported": "2026-04-23T10:23:12.472Z",
     "portfolio": {
       "updated": "2026-04-23T10:04:41.658Z",
       "summary": "Portfolio review as of April 23, 2026 with live price updates. SNDK showing strongest performance at +43.6% with high volatility (beta 2.1). UNH up +14.5% on strong Q1 beat. MELI down -6.9%. AMD stable at +29.7%. ETFs (CSPX, QQQM) showing modest +2.3% gains. Most large-cap tech positions showing single-digit to low double-digit gains. NFLX showing wide range post-earnings (+7-25%).",
