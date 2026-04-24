@@ -1,13 +1,13 @@
 {
   "_version": 1,
-  "_ts": "2026-04-24T05:44:40.196Z",
+  "_ts": "2026-04-24T05:59:34.723Z",
   "_device": "desktop",
-  "lastPortPositions": "[{\"ticker\":\"SNDK\",\"action\":\"Trim\",\"reasoning\":\"Up 45%, at target, RSI ~70.5 overbought, price 53% above 50DMA and 69% above 200DMA\",\"exit\":\"$979.07\",\"stop\":\"$820\",\"priority\":\"High\"},{\"ticker\":\"PLTR\",\"action\":\"Hold\",\"reasoning\":\"AI government/defense analytics thesis intact, RSI neutral ~51.75, trend strongly bullish\",\"exit\":\"$207.52\",\"stop\":\"$120\",\"priority\":\"Med\"},{\"ticker\":\"MA\",\"action\":\"Hold\",\"reasoning\":\"Thesis intact, payments duopoly, RSI ~55 neutral, no overbought signal\",\"exit\":\"$600\",\"stop\":\"$480\",\"priority\":\"Low\"},{\"ticker\":\"MSFT\",\"action\":\"Trim\",\"reasoning\":\"RSI ~71.65 overbought threshold triggered, modest 6% above 50DMA\",\"exit\":\"$415.86\",\"stop\":\"$380\",\"priority\":\"High\"},{\"ticker\":\"META\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~60 neutral-bullish, not extended\",\"exit\":\"$750\",\"stop\":\"$620\",\"priority\":\"Med\"},{\"ticker\":\"CRM\",\"action\":\"Watch\",\"reasoning\":\"Bearish technical state, RSI ~42, below both DMAs, monitor for recovery\",\"exit\":\"$220\",\"stop\":\"$160\",\"priority\":\"Med\"},{\"ticker\":\"TSLA\",\"action\":\"Watch\",\"reasoning\":\"Mixed technical setup, price below 200DMA ~$390, RSI ~58 neutral\",\"exit\":\"$450\",\"stop\":\"$320\",\"priority\":\"Med\"},{\"ticker\":\"NKE\",\"action\":\"Exit\",\"reasoning\":\"Bearish/Oversold, RSI ~29, price significantly below 50DMA ~$63 and 200DMA ~$66\",\"exit\":\"$46.03\",\"stop\":\"$40\",\"priority\":\"High\"},{\"ticker\":\"UNH\",\"action\":\"Watch\",\"reasoning\":\"Bearish/Near oversold, RSI ~34, price well below both 50DMA ~$390 and 200DMA ~$440\",\"exit\":\"$400\",\"stop\":\"$300\",\"priority\":\"Med\"},{\"ticker\":\"GOOGL\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~63 strong, price above DMAs\",\"exit\":\"$420\",\"stop\":\"$280\",\"priority\":\"Low\"},{\"ticker\":\"AMZN\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~62 strong, price above 50DMA ~$220 and 200DMA ~$215\",\"exit\":\"$320\",\"stop\":\"$200\",\"priority\":\"Low\"},{\"ticker\":\"NFLX\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~55 neutral-bullish, price well above 50DMA ~$85 and 200DMA ~$75\",\"exit\":\"$150\",\"stop\":\"$70\",\"priority\":\"Low\"},{\"ticker\":\"ASML\",\"action\":\"Watch\",\"reasoning\":\"Bearish/Recovering, RSI ~46, price below 50DMA ~$1050 and 200DMA ~$1100\",\"exit\":\"$1100\",\"stop\":\"$900\",\"priority\":\"Med\"},{\"ticker\":\"NVDA\",\"action\":\"Hold\",\"reasoning\":\"Bullish setup, price significantly above 50DMA ~$115 and 200DMA ~$130, RSI ~49 neutral\",\"exit\":\"$280\",\"stop\":\"$150\",\"priority\":\"Low\"},{\"ticker\":\"CSPX\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~52, price near 50DMA ~$750 and above 200DMA ~$740\",\"exit\":\"$850\",\"stop\":\"$700\",\"priority\":\"Low\"},{\"ticker\":\"AMD\",\"action\":\"Watch\",\"reasoning\":\"Mixed technical setup, RSI ~49-58 transitional, price above 200DMA ~$260\",\"exit\":\"$320\",\"stop\":\"$240\",\"priority\":\"Med\"},{\"ticker\":\"MELI\",\"action\":\"Watch\",\"reasoning\":\"Bearish technical state, RSI ~44, price below 50DMA ~$1820 and 200DMA ~$1900\",\"exit\":\"$2000\",\"stop\":\"$1600\",\"priority\":\"Med\"},{\"ticker\":\"QQQM\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~53, price above both 50DMA ~$255 and 200DMA ~$248\",\"exit\":\"$300\",\"stop\":\"$240\",\"priority\":\"Low\"},{\"ticker\":\"ADBE\",\"action\":\"Exit\",\"reasoning\":\"Bearish technical state, RSI ~38-53 weak, price at $236.80 well below 200DMA ~$319\",\"exit\":\"$236.80\",\"stop\":\"$200\",\"priority\":\"High\"},{\"ticker\":\"S63\",\"action\":\"Hold\",\"reasoning\":\"Bullish trend, RSI ~52, price above 50DMA ~$11.10 and 200DMA ~$10.80\",\"exit\":\"$12.50\",\"stop\":\"$10.00\",\"priority\":\"Low\"}]",
+  "lastPortPositions": "[{\"ticker\":\"SNDK\",\"action\":\"Trim\",\"reasoning\":\"Up 45%, at all-time highs, RSI ~70.5 overbought, price 53% above 50DMA and 69% above 200DMA, operating margin negative at -6.97%\",\"exit\":\"$979.07\",\"stop\":\"$640\",\"priority\":\"High\"},{\"ticker\":\"PLTR\",\"action\":\"Hold\",\"reasoning\":\"Trend strongly bullish, RSI neutral at ~51.75, AI government/defense analytics thesis intact, up only 6.3%\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Med\"},{\"ticker\":\"MA\",\"action\":\"Hold\",\"reasoning\":\"Essentially flat at +0.21%, high-quality compounder, RSI neutral ~55, no overbought signal, long-term thesis unimpeachable\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Low\"},{\"ticker\":\"MSFT\",\"action\":\"Watch\",\"reasoning\":\"RSI at overbought threshold ~71.65, price modestly above 50DMA, capex-heavy guidance creates uncertainty\",\"exit\":\"N/A\",\"stop\":\"$392\",\"priority\":\"Med\"},{\"ticker\":\"META\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~60, price above both DMAs, AI investment thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Med\"},{\"ticker\":\"CRM\",\"action\":\"Watch\",\"reasoning\":\"Bearish technical state, RSI ~42, price significantly below 50DMA at ~$295\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"TSLA\",\"action\":\"Watch\",\"reasoning\":\"Mixed technical state, RSI ~58, price below 200DMA at ~$390, macro uncertainty on tariffs and EV demand\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"NKE\",\"action\":\"Exit\",\"reasoning\":\"Bearish/Oversold, RSI ~29, price at $46.03 has broken significantly below 50DMA of ~$63 and 200DMA of ~$66, confirmed material breakdown\",\"exit\":\"$46.03\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"UNH\",\"action\":\"Watch\",\"reasoning\":\"Bearish/Near oversold, RSI ~34, price at $350.86 well below 50DMA of ~$390 and 200DMA of ~$440\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"GOOGL\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~63, price above both 50DMA and 200DMA, AI/search thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Med\"},{\"ticker\":\"AMZN\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~62, price above both DMAs, AWS/cloud and retail growth thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Med\"},{\"ticker\":\"NFLX\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~55, price above both 50DMA and 200DMA, streaming growth thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Low\"},{\"ticker\":\"ASML\",\"action\":\"Watch\",\"reasoning\":\"Bearish/Recovering, RSI ~46, price at $941.59 significantly below 50DMA of ~$1050 and 200DMA of ~$1100\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"NVDA\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, price significantly above 50DMA of ~$115 and 200DMA of ~$130, RSI ~49 neutral, AI GPU thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Med\"},{\"ticker\":\"CSPX\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~52, price above both 50DMA and 200DMA, NASDAQ-100 growth thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Low\"},{\"ticker\":\"AMD\",\"action\":\"Watch\",\"reasoning\":\"Mixed technical state, RSI 49–58 transitional, price above 50DMA but below/near 200DMA, macro uncertainty on AI competition\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Med\"},{\"ticker\":\"MELI\",\"action\":\"Watch\",\"reasoning\":\"Bearish technical state, RSI ~44, price below both 50DMA of ~$1820 and 200DMA of ~$1900, pullback from highs\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"QQQM\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~53, price above both 50DMA and 200DMA, NASDAQ-100 growth thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Low\"},{\"ticker\":\"ADBE\",\"action\":\"Exit\",\"reasoning\":\"Bearish technical state, RSI 38–53 weak, price at $236.80 well below 50DMA of ~$253 and significantly below 200DMA of ~$319, confirmed breakdown\",\"exit\":\"$236.80\",\"stop\":\"N/A\",\"priority\":\"High\"},{\"ticker\":\"S63\",\"action\":\"Hold\",\"reasoning\":\"Bullish technical state, RSI ~52, price above both 50DMA and 200DMA, long-term thesis intact\",\"exit\":\"N/A\",\"stop\":\"N/A\",\"priority\":\"Low\"}]",
   "lastPortSummary": "",
-  "lastPortTs": "2026-04-24T05:42:28.295Z",
-  "lastScanStocks": "[{\"ticker\":\"U11\",\"exchange\":\"SGX\",\"sector\":\"Financials / ASEAN Banking\",\"sleeve\":\"LT\",\"action\":\"Buy\",\"entry\":\"S$34.50–S$36.50\",\"target\":\"S$44–S$48\",\"stop\":\"Close below S$31.00\",\"size\":\"8%\",\"conviction\":\"Tier 2\",\"thesis\":\"Cyclical NIM headwind and heavy provisioning depressed FY25 earnings; ASEAN Citi integration synergies not yet priced in; normalized P/E ~9x vs peers offers margin of safety.\"},{\"ticker\":\"O39\",\"exchange\":\"SGX\",\"sector\":\"Financials / Wealth + Insurance\",\"sleeve\":\"LT\",\"action\":\"Buy\",\"entry\":\"S$21.50–S$22.20\",\"target\":\"S$26–S$28\",\"stop\":\"Close below S$19.00\",\"size\":\"10%\",\"conviction\":\"Tier 1\",\"thesis\":\"Wealth and insurance engine undervalued vs pure-banking peers; record earnings franchise with NIM headwind cyclical not structural; ongoing S$600M buyback provides valuation floor.\"},{\"ticker\":\"PFE\",\"exchange\":\"NYSE\",\"sector\":\"Healthcare / Large-Cap Pharma\",\"sleeve\":\"LT\",\"action\":\"Buy\",\"entry\":\"See analysis\",\"target\":\"See analysis\",\"stop\":\"See analysis\",\"size\":\"See analysis\",\"conviction\":\"Tier 2\",\"thesis\":\"Trading 59% below Morningstar fair value of $68 after COVID revenue collapse; diverse drug portfolio with blockbuster Vyndaqel and Padcev provides durable FCF floor; 6.91% dividend yield cushions downside while awaiting pipeline re-rating.\"}]",
-  "lastScanMacro": "Sturdy growth and lower inflation backdrop with Fed expected to remain on hold through 2026, though geopolitical escalation, sticky inflation re-acceleration, or AI capex ROI disappointment could trigger violent de-rotation from growth to value.",
-  "lastScanTs": "2026-04-24T05:43:31.272Z",
+  "lastPortTs": "2026-04-24T05:51:21.596Z",
+  "lastScanStocks": "[{\"ticker\":\"U11\",\"exchange\":\"SGX\",\"sector\":\"Financials / ASEAN Banking\",\"sleeve\":\"LT\",\"action\":\"Buy\",\"entry\":\"S$34.50–S$36.50\",\"target\":\"S$44–S$48\",\"stop\":\"Close below S$31.00\",\"size\":\"8%\",\"conviction\":\"Tier 2\",\"thesis\":\"Cyclical NIM headwind and heavy provisioning depressed FY25 earnings; ASEAN Citi integration synergies not yet priced in; normalized P/E ~9x vs peers offers 18–22% margin of safety.\"},{\"ticker\":\"O39\",\"exchange\":\"SGX\",\"sector\":\"Financials / Wealth + Insurance\",\"sleeve\":\"LT\",\"action\":\"Buy\",\"entry\":\"S$21.50–S$22.20\",\"target\":\"S$26–S$28\",\"stop\":\"Close below S$19.00\",\"size\":\"10%\",\"conviction\":\"Tier 2\",\"thesis\":\"Wealth and insurance engine undervalued vs pure-banking peers; record earnings franchise with S$600M buyback war chest; 12–15% margin of safety despite 40%+ move in 12 months.\"},{\"ticker\":\"PFE\",\"exchange\":\"NYSE\",\"sector\":\"Healthcare / Large-Cap Pharma\",\"sleeve\":\"LT\",\"action\":\"Buy\",\"entry\":\"See analysis\",\"target\":\"$68.00\",\"stop\":\"See analysis\",\"size\":\"See analysis\",\"conviction\":\"Tier 2\",\"thesis\":\"Morningstar fair value $68.00 vs current $27.52 represents extraordinary deep value; solid foundation from diverse drug portfolio and blockbusters (Vyndaqel, Padcev); 6.91% dividend yield provides income cushion.\"}]",
+  "lastScanMacro": "Sturdy growth and lower inflation expected with Fed on hold through 2026, but meaningful rate risk exists from geopolitical escalation, sticky inflation re-acceleration, or AI capex ROI disappointment triggering de-rotation from growth to value.",
+  "lastScanTs": "2026-04-24T05:51:16.102Z",
   "portGridData": "[{\"ticker\":\"SNDK\",\"ccy\":\"USD\",\"entry\":\"672.57\",\"current\":\"979.07\",\"shares\":\"2.2393\",\"pnl\":\"45.57\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"PLTR\",\"ccy\":\"USD\",\"entry\":\"133.15\",\"current\":\"141.54\",\"shares\":\"13.470\",\"pnl\":\"6.30\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"MA\",\"ccy\":\"USD\",\"entry\":\"520.19\",\"current\":\"521.30\",\"shares\":\"3.5986\",\"pnl\":\"0.21\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"MSFT\",\"ccy\":\"USD\",\"entry\":\"400.46\",\"current\":\"415.86\",\"shares\":\"4.3699\",\"pnl\":\"3.85\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"META\",\"ccy\":\"USD\",\"entry\":\"634.50\",\"current\":\"688.55\",\"shares\":\"2.5391\",\"pnl\":\"8.52\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"CRM\",\"ccy\":\"USD\",\"entry\":\"184.44\",\"current\":\"187.11\",\"shares\":\"9.3909\",\"pnl\":\"1.45\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"TSLA\",\"ccy\":\"USD\",\"entry\":\"361.08\",\"current\":\"386.30\",\"shares\":\"4.1541\",\"pnl\":\"6.98\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"NKE\",\"ccy\":\"USD\",\"entry\":\"46.09\",\"current\":\"46.03\",\"shares\":\"34.714\",\"pnl\":\"-0.13\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"UNH\",\"ccy\":\"USD\",\"entry\":\"308.54\",\"current\":\"350.86\",\"shares\":\"4.5175\",\"pnl\":\"13.72\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"GOOGL\",\"ccy\":\"USD\",\"entry\":\"308.97\",\"current\":\"341.68\",\"shares\":\"3.8748\",\"pnl\":\"10.59\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"AMZN\",\"ccy\":\"USD\",\"entry\":\"207.32\",\"current\":\"250.56\",\"shares\":\"5.1676\",\"pnl\":\"20.86\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"NFLX\",\"ccy\":\"USD\",\"entry\":\"86.66\",\"current\":\"97.31\",\"shares\":\"12.691\",\"pnl\":\"12.29\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"ASML\",\"ccy\":\"USD\",\"entry\":\"1433.46\",\"current\":\"941.59\",\"shares\":\"0.7673\",\"pnl\":\"-34.31\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"NVDA\",\"ccy\":\"USD\",\"entry\":\"180.59\",\"current\":\"201.68\",\"shares\":\"3.8780\",\"pnl\":\"11.68\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"CSPX\",\"ccy\":\"USD\",\"entry\":\"749.52\",\"current\":\"762.96\",\"shares\":\"0.9340\",\"pnl\":\"1.79\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"AMD\",\"ccy\":\"USD\",\"entry\":\"214.61\",\"current\":\"277.70\",\"shares\":\"2.3309\",\"pnl\":\"29.40\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"MELI\",\"ccy\":\"USD\",\"entry\":\"1993.74\",\"current\":\"1773.96\",\"shares\":\"0.1905\",\"pnl\":\"-11.02\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"QQQM\",\"ccy\":\"USD\",\"entry\":\"261.01\",\"current\":\"267.13\",\"shares\":\"1.1497\",\"pnl\":\"2.34\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"ADBE\",\"ccy\":\"USD\",\"entry\":\"277.65\",\"current\":\"236.80\",\"shares\":\"1.0805\",\"pnl\":\"-14.71\",\"action\":\"Hold\",\"notes\":\"\"},{\"ticker\":\"S63\",\"ccy\":\"SGD\",\"entry\":\"11.29\",\"current\":\"11.39\",\"shares\":\"100\",\"pnl\":\"0.89\",\"action\":\"Hold\",\"notes\":\"\"}]",
   "portGridTs": "2026-04-24T05:42:17.298Z",
   "predictions": "[{\"id\":\"scan_O39_1777009411272\",\"ts\":\"2026-04-24T05:43:31.272Z\",\"source\":\"scan\",\"ticker\":\"O39\",\"action\":\"Buy\",\"entry\":\"S$21.50–S$22.20\",\"target\":\"S$26–S$28\",\"stop\":\"Close below S$19.00\",\"conviction\":\"Tier 1\",\"thesis\":\"Wealth and insurance engine undervalued vs pure-banking peers; record earnings franchise with NIM headwind cyclical not structural; ongoing S$600M buyback provides valuation floor.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_CRM_1777009348295\",\"ts\":\"2026-04-24T05:42:28.295Z\",\"source\":\"port\",\"ticker\":\"CRM\",\"action\":\"Watch\",\"entry\":\"\",\"target\":\"$220\",\"stop\":\"$160\",\"conviction\":\"Med\",\"thesis\":\"Bearish technical state, RSI ~42, below both DMAs, monitor for recovery\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_MSFT_1777009348295\",\"ts\":\"2026-04-24T05:42:28.295Z\",\"source\":\"port\",\"ticker\":\"MSFT\",\"action\":\"Trim\",\"entry\":\"\",\"target\":\"$415.86\",\"stop\":\"$380\",\"conviction\":\"High\",\"thesis\":\"RSI ~71.65 overbought threshold triggered, modest 6% above 50DMA\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_CVS_1776939615105\",\"ts\":\"2026-04-23T10:20:15.105Z\",\"source\":\"scan\",\"ticker\":\"CVS\",\"action\":\"Buy\",\"entry\":\"$72–$78\",\"target\":\"$105–$115\",\"stop\":\"Break below $65\",\"conviction\":\"Tier 2\",\"thesis\":\"Cyclical undervaluation at 10.8x forward P/E vs. 16x sector avg; 2.48% Medicare rate increase catalyst and robust $10.6B FCF with mid-teens EPS CAGR.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_CMCSA_1776939399433\",\"ts\":\"2026-04-23T10:16:39.433Z\",\"source\":\"scan\",\"ticker\":\"CMCSA\",\"action\":\"See analysis\",\"entry\":\"See analysis\",\"target\":\"See analysis\",\"stop\":\"See analysis\",\"conviction\":\"See analysis\",\"thesis\":\"Record $19B free cash flow in 2025; analysis incomplete in source text.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_MU_1776939399433\",\"ts\":\"2026-04-23T10:16:39.433Z\",\"source\":\"scan\",\"ticker\":\"MU\",\"action\":\"Buy\",\"entry\":\"$440–$480\",\"target\":\"$700–$850\",\"stop\":\"Close below $390; HBM oversupply confirmed; Samsung aggressive pricing\",\"conviction\":\"Tier 2\",\"thesis\":\"AI HBM leadership with 111% FY2026 sales growth, forward P/E 5.22× vs 5yr avg 12–15×, 39.82% ROE, deeply cheap on cyclical memory fear not structural erosion.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_O39.SI_1776939399433\",\"ts\":\"2026-04-23T10:16:39.433Z\",\"source\":\"scan\",\"ticker\":\"O39.SI\",\"action\":\"Buy\",\"entry\":\"S$20.80–S$22.20\",\"target\":\"S$26–S$28\",\"stop\":\"Close below S$19.50; sustained NIM < 1.75% with AUM net outflows\",\"conviction\":\"Tier 2\",\"thesis\":\"Great Eastern insurance engine (17% income growth) and record wealth management S$5.6B (38% of income) provide earnings buffer; 1.7× P/BV discount to DBS unjustified.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_U11.SI_1776939399433\",\"ts\":\"2026-04-23T10:16:39.433Z\",\"source\":\"scan\",\"ticker\":\"U11.SI\",\"action\":\"Buy\",\"entry\":\"S$34.50–S$36.50\",\"target\":\"S$44–S$48\",\"stop\":\"Close below S$32\",\"conviction\":\"Tier 2\",\"thesis\":\"Cyclical earnings drag from 2025 provisions now over; fortress CET1 15.1%, ASEAN scale growth from Citi acquisition, trades 1.2× book vs 5yr avg 1.4×.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_VZ_1776938794678\",\"ts\":\"2026-04-23T10:06:34.678Z\",\"source\":\"scan\",\"ticker\":\"VZ\",\"action\":\"See analysis\",\"entry\":\"See analysis\",\"target\":\"See analysis\",\"stop\":\"See analysis\",\"conviction\":\"See analysis\",\"thesis\":\"See analysis\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_C_1776938794678\",\"ts\":\"2026-04-23T10:06:34.678Z\",\"source\":\"scan\",\"ticker\":\"C\",\"action\":\"Buy\",\"entry\":\"See analysis\",\"target\":\"See analysis\",\"stop\":\"See analysis\",\"conviction\":\"Tier 2\",\"thesis\":\"Q1 2026 profit rose 42% with 56% YoY EPS jump driven by geopolitical-fueled trading revenue and best quarterly revenue in a decade.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_DVN_1776938794678\",\"ts\":\"2026-04-23T10:06:34.678Z\",\"source\":\"scan\",\"ticker\":\"DVN\",\"action\":\"Buy\",\"entry\":\"$42–$46\",\"target\":\"$68–$72 (synergy realization + EBITDA re-rate)\",\"stop\":\"WTI crude < $55/bbl sustained + merger integration failure\",\"conviction\":\"Tier 1\",\"thesis\":\"Merger with Coterra unlocks $1B annual pre-tax synergies with 0.9x net debt-to-EBITDAX and positioned for natural gas demand surge from LNG exports and data center power.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_F34_1776938794678\",\"ts\":\"2026-04-23T10:06:34.678Z\",\"source\":\"scan\",\"ticker\":\"F34\",\"action\":\"Buy\",\"entry\":\"SGD $3.75–$3.95\",\"target\":\"SGD $5.20 (+34%) + ~4.3% div yield annually\",\"stop\":\"Prolonged China deflation + palm oil price < $700/MT for 2 quarters\",\"conviction\":\"Tier 2\",\"thesis\":\"Multi-decade Asian food-chain champion mispriced due to temporary China margin compression with healthy net income SGD 1.05B and FCF-positive operations at SGD 4.79B EBITDA.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_U11_1776923560866\",\"ts\":\"2026-04-23T05:52:40.866Z\",\"source\":\"scan\",\"ticker\":\"U11\",\"action\":\"Buy\",\"entry\":\"S$35.50–S$37.00\",\"target\":\"S$46–S$50\",\"stop\":\"Sustained close below S$33.00\",\"conviction\":\"Tier 1\",\"thesis\":\"Cyclical NIM pressure masking ASEAN franchise value and capital returns; 34% undervaluation vs. intrinsic with Citi acquisition upside not priced in.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_MELI_1776840039750\",\"ts\":\"2026-04-22T06:40:39.750Z\",\"source\":\"port\",\"ticker\":\"MELI\",\"action\":\"BUY MORE\",\"entry\":\"\",\"target\":\"NOT SPECIFIED\",\"stop\":\"NOT SPECIFIED\",\"conviction\":\"Med\",\"thesis\":\"Down 6.9% from entry but Wall Street consensus target NOT SPECIFIED\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_AMD_1776840039750\",\"ts\":\"2026-04-22T06:40:39.750Z\",\"source\":\"port\",\"ticker\":\"AMD\",\"action\":\"TRIM\",\"entry\":\"\",\"target\":\"$320 (Stifel target)\",\"stop\":\"$240 (prior base, protect gains)\",\"conviction\":\"High\",\"thesis\":\"Up 29.7% and on a 12-day winning streak approaching 52-week high of $281; near-term overbought — trim 20–25% to lock gains, retain for AI data center + Meta/OpenAI chip demand story.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_UNH_1776840039750\",\"ts\":\"2026-04-22T06:40:39.750Z\",\"source\":\"port\",\"ticker\":\"UNH\",\"action\":\"BUY MORE\",\"entry\":\"\",\"target\":\"$363 (analyst consensus)\",\"stop\":\"$280 (structural support)\",\"conviction\":\"High\",\"thesis\":\"Q1 earnings tomorrow (April 21) represent a pivotal catalyst; down ~46% from ATH with a valuation reset largely priced in — analyst consensus target $363 implies ~13% upside from current $322; accumulate on post-earnings dip if guidance disappoints.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_Ticker \\\\_1776698213113\",\"ts\":\"2026-04-20T15:16:53.113Z\",\"source\":\"scan\",\"ticker\":\"Ticker \\\\\",\"action\":\"Buy\",\"entry\":\"See full text\",\"target\":\"—\",\"stop\":\"See full text\",\"conviction\":\"SGX\",\"thesis\":\"SGX\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_MA_1776698142976\",\"ts\":\"2026-04-20T15:15:42.976Z\",\"source\":\"port\",\"ticker\":\"MA\",\"action\":\"BUY MORE\",\"entry\":\"\",\"target\":\"$620–$650 (2–3yr horizon)\",\"stop\":\"$480 (52-week support)\",\"conviction\":\"Med\",\"thesis\":\"Trading 13% below ATH with 25%+ analyst upside; best value/quality combo in the portfolio. Durable moat, 64% EBITDA margin, earnings Apr 30. Average 12-month price target $654.66.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_ADBE_1776669539446\",\"ts\":\"2026-04-20T07:18:59.446Z\",\"source\":\"port\",\"ticker\":\"ADBE\",\"action\":\"TRIM\",\"entry\":\"\",\"target\":\"$250–$260 — take any near-term bounce\",\"stop\":\"Below $220, accelerate exit\",\"conviction\":\"High\",\"thesis\":\"Adobe is caught in a structural vice: AI generative tools (Midjourney, Sora, OpenAI) threaten its Creative Cloud moat. Revenue growth is decelerating. The failed Figma acquisition ($20B regulatory block) removed the key growth catalyst. At $244, it's not obviously cheap on a value basis with 25x forward earnings and a deteriorating competitive position. This is a melting-ice-cube risk in a 2–5yr horizon.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_PLTR_1776669539446\",\"ts\":\"2026-04-20T07:18:59.446Z\",\"source\":\"port\",\"ticker\":\"PLTR\",\"action\":\"TRIM\",\"entry\":\"\",\"target\":\"$145–$155 for short-term tranche\",\"stop\":\"Close below $118 (breaks recent consolidation); position becomes uninvestable on a value basis below $90\",\"conviction\":\"High\",\"thesis\":\"PLTR trades at ~100x forward earnings. Even bulls concede the government/commercial growth is priced to perfection. For a value mandate, this is the single most misaligned position in the book. The short-term narrative (AI government contracts, DOGE spending) has driven the price; that narrative is now consensus. Long-term: Hold a 25–30% residual position if you believe in the AI government moat. Short-term: Trim NOW. Lock in gains above $140.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_GOOG_1776668697060\",\"ts\":\"2026-04-20T07:04:57.059Z\",\"source\":\"scan\",\"ticker\":\"GOOG\",\"action\":\"Buy\",\"entry\":\"$155–$168\",\"target\":\"$230–$260\",\"stop\":\"Search revenue share drops below 75% for 2 consecutive quarters OR forced structural breakup\",\"conviction\":\"Tier 1\",\"thesis\":\"Alphabet trades below its 5-year average P/E ex-cash as the market overweights DOJ antitrust and AI search disruption tail risks, while Google Cloud's 28%+ growth is discounted versus AWS/Azure peers and YouTube remains a massively underleveraged advertising asset.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_GRAB_1776650497552\",\"ts\":\"2026-04-20T02:01:37.552Z\",\"source\":\"scan\",\"ticker\":\"GRAB\",\"action\":\"Buy\",\"entry\":\"See analysis\",\"target\":\"See analysis\",\"stop\":\"See analysis\",\"conviction\":\"See analysis\",\"thesis\":\"See analysis\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_D05_1776650497552\",\"ts\":\"2026-04-20T02:01:37.552Z\",\"source\":\"scan\",\"ticker\":\"D05\",\"action\":\"Buy\",\"entry\":\"SGD 36.00–38.50\",\"target\":\"SGD 48–54\",\"stop\":\"ROE drops below 13% for 2 consecutive quarters OR Singapore property NPL spike >3%\",\"conviction\":\"Tier 1\",\"thesis\":\"Highest-quality ASEAN bank trading at ~1.5x P/B vs. 5yr avg ~1.7x with ROE ~18%, fortress CET1 of 14.7%, and structural fee income offsetting rate-cut NIM compression.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_PFE_1776650497552\",\"ts\":\"2026-04-20T02:01:37.552Z\",\"source\":\"scan\",\"ticker\":\"PFE\",\"action\":\"Buy\",\"entry\":\"$23.50–$26.00\",\"target\":\"$36–$42\",\"stop\":\"Dividend cut OR two consecutive pipeline Phase 3 failures in oncology OR generic erosion driving EPS below $1.80\",\"conviction\":\"Tier 2\",\"thesis\":\"Trades at ~8x P/E vs. 5yr avg ~13x with Seagen oncology pipeline not priced in and a 6.7% dividend yield, as market treats post-COVID normalization as structural rather than cyclical.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_CIVI_1776650497552\",\"ts\":\"2026-04-20T02:01:37.552Z\",\"source\":\"scan\",\"ticker\":\"CIVI\",\"action\":\"Buy\",\"entry\":\"$48–$54\",\"target\":\"$78–$90\",\"stop\":\"WTI sustainably below $55 for >90 days OR net debt/EBITDA >3x from acquisition\",\"conviction\":\"Tier 2\",\"thesis\":\"Trades at ~4.5x EV/EBITDA vs. 5yr avg ~6x with ROIC ~14% vs. WACC ~9%, generating >$1.5B FCF at $70 WTI while market ignores 10+ year reserve life and aggressive buyback program.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_VICI_1776650497552\",\"ts\":\"2026-04-20T02:01:37.552Z\",\"source\":\"scan\",\"ticker\":\"VICI\",\"action\":\"Buy\",\"entry\":\"$27.50–$29.50\",\"target\":\"$38–$42\",\"stop\":\"AFFO/share growth <2% for 2 consecutive years OR tenant credit event (Caesars/MGM downgrade to CCC)\",\"conviction\":\"Tier 2\",\"thesis\":\"Trades at ~13x AFFO vs. 5yr avg ~16x with inflation pass-through via CPI escalators on 42yr avg WALT leases, mispriced as cyclical casino exposure rather than infrastructure landlord.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_ASML_1776611464049\",\"ts\":\"2026-04-19T15:11:04.048Z\",\"source\":\"port\",\"ticker\":\"ASML\",\"action\":\"BUY MORE\",\"entry\":\"\",\"target\":\"No exit\",\"stop\":\"Below $1,300 (export ban expansion)\",\"conviction\":\"Med\",\"thesis\":\"Semiconductor equipment monopoly. Tiny position (0.77 shares) — consider adding. EUV is irreplaceable. Geopolitical China export risk is the only structural concern.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_NFLX_1776611464049\",\"ts\":\"2026-04-19T15:11:04.048Z\",\"source\":\"port\",\"ticker\":\"NFLX\",\"action\":\"TRIM\",\"entry\":\"\",\"target\":\"Trim 4–5 shares immediately given today's drop\",\"stop\":\"Below $85 — full exit\",\"conviction\":\"High\",\"thesis\":\"-9.72% today is a red flag — likely earnings/guidance miss. $97.31 price with 12.69 shares. Advertising tier growth story is intact but valuation demands perfection. Today's drop warrants reassessment.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_NKE_1776611464049\",\"ts\":\"2026-04-19T15:11:04.048Z\",\"source\":\"port\",\"ticker\":\"NKE\",\"action\":\"TRIM\",\"entry\":\"\",\"target\":\"Exit 15–20 shares if no catalyst above $50 within 60 days\",\"stop\":\"Below $40 — full exit\",\"conviction\":\"High\",\"thesis\":\"34.7 shares is the largest share count in portfolio. Essentially flat (-$2.08) at $46. NKE is a value trap candidate — brand erosion, China exposure, management transition. This is a high-conviction bet that hasn't paid off.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_TSLA_1776611464049\",\"ts\":\"2026-04-19T15:11:04.048Z\",\"source\":\"port\",\"ticker\":\"TSLA\",\"action\":\"TRIM\",\"entry\":\"~$400\",\"target\":\"Trim 1–2 shares at $420–$430\",\"stop\":\"Below $340 (demand destruction confirmed)\",\"conviction\":\"High\",\"thesis\":\"$164 gain on ~$400 basis. TSLA is a sentiment/Musk vehicle, not a value stock. EV margin compression ongoing. Position is speculative at current sizing.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"port_SNDK_1776611464048\",\"ts\":\"2026-04-19T15:11:04.048Z\",\"source\":\"port\",\"ticker\":\"SNDK\",\"action\":\"TRIM\",\"entry\":\"\",\"target\":\"$950–$980 (trim 30–40%)\",\"stop\":\"Close below $820 (breakdown of recovery thesis)\",\"conviction\":\"High\",\"thesis\":\"Storage/memory play, largest position, +37% unrealized gain. Concentration risk at top of portfolio. Memory cycle is mid-recovery but valuation stretched.\",\"sleeve\":\"portfolio\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_D05.SI_1776611444676\",\"ts\":\"2026-04-19T15:10:44.676Z\",\"source\":\"scan\",\"ticker\":\"D05.SI\",\"action\":\"Buy\",\"entry\":\"SGD 38.50–40.50\",\"target\":\"See analysis\",\"stop\":\"See analysis\",\"conviction\":\"Tier 1\",\"thesis\":\"DBS is Southeast Asia's highest-quality bank trading at a P/E discount to its own history despite record ~18% ROE, 17.5% CET1, and ~6% dividend yield, with rate cut risk already over-priced by the market.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_LYB_1776611444676\",\"ts\":\"2026-04-19T15:10:44.676Z\",\"source\":\"scan\",\"ticker\":\"LYB\",\"action\":\"Buy\",\"entry\":\"$66–$74\",\"target\":\"$105–$115\",\"stop\":\"Dividend cut OR Net Debt/EBITDA >3.0x OR structural demand destruction evidence\",\"conviction\":\"Tier 3\",\"thesis\":\"LyondellBasell sits at a petrochemical cycle trough with ethylene spreads near decade lows, but a >$4.50/share dividend, asset-light restructuring, and ~30% margin of safety make it a classic cyclical bottom play.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_BRK.B_1776611444676\",\"ts\":\"2026-04-19T15:10:44.676Z\",\"source\":\"scan\",\"ticker\":\"BRK.B\",\"action\":\"Buy\",\"entry\":\"$445–$465\",\"target\":\"$580–$620\",\"stop\":\"P/B exceeds 1.9x without corresponding book growth OR major acquisition at poor terms\",\"conviction\":\"Tier 1\",\"thesis\":\"Berkshire's $330B+ cash pile and Buffett transition discount create a rare entry window into a ~12% annually compounding book value grower with embedded optionality on market dislocation.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null},{\"id\":\"scan_CVX_1776611444676\",\"ts\":\"2026-04-19T15:10:44.676Z\",\"source\":\"scan\",\"ticker\":\"CVX\",\"action\":\"Buy\",\"entry\":\"$140–$152\",\"target\":\"$195–$210\",\"stop\":\"WTI breaks below $55 for >30 days OR net debt/EBITDA >2.0x\",\"conviction\":\"Tier 1\",\"thesis\":\"Chevron trades at a double discount due to energy rotation and Hess acquisition uncertainty, but Permian Basin reserve quality, $15B+ annual FCF, and ~$50 WTI breakeven provide durable compounding with ~22% margin of safety.\",\"sleeve\":\"LT\",\"status\":\"open\",\"outcome\":null,\"scores\":null}]",
@@ -123,9 +123,9 @@
   "lastUpdateCheck": 1776694156220,
   "updateResult": "no_update",
   "_portfolio_context": {
-    "exported": "2026-04-24T05:44:40.196Z",
+    "exported": "2026-04-24T05:59:34.723Z",
     "portfolio": {
-      "updated": "2026-04-24T05:42:28.295Z",
+      "updated": "2026-04-24T05:51:21.596Z",
       "summary": "",
       "positions": [
         {
@@ -133,166 +133,166 @@
           "action": "Trim",
           "priority": "High",
           "exit_target": "$979.07",
-          "stop": "$820",
-          "reasoning": "Up 45%, at target, RSI ~70.5 overbought, price 53% above 50DMA and 69% above 200DMA"
+          "stop": "$640",
+          "reasoning": "Up 45%, at all-time highs, RSI ~70.5 overbought, price 53% above 50DMA and 69% above 200DMA, operating margin negative a"
         },
         {
           "ticker": "PLTR",
           "action": "Hold",
           "priority": "Med",
-          "exit_target": "$207.52",
-          "stop": "$120",
-          "reasoning": "AI government/defense analytics thesis intact, RSI neutral ~51.75, trend strongly bullish"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Trend strongly bullish, RSI neutral at ~51.75, AI government/defense analytics thesis intact, up only 6.3%"
         },
         {
           "ticker": "MA",
           "action": "Hold",
           "priority": "Low",
-          "exit_target": "$600",
-          "stop": "$480",
-          "reasoning": "Thesis intact, payments duopoly, RSI ~55 neutral, no overbought signal"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Essentially flat at +0.21%, high-quality compounder, RSI neutral ~55, no overbought signal, long-term thesis unimpeachab"
         },
         {
           "ticker": "MSFT",
-          "action": "Trim",
-          "priority": "High",
-          "exit_target": "$415.86",
-          "stop": "$380",
-          "reasoning": "RSI ~71.65 overbought threshold triggered, modest 6% above 50DMA"
+          "action": "Watch",
+          "priority": "Med",
+          "exit_target": "N/A",
+          "stop": "$392",
+          "reasoning": "RSI at overbought threshold ~71.65, price modestly above 50DMA, capex-heavy guidance creates uncertainty"
         },
         {
           "ticker": "META",
           "action": "Hold",
           "priority": "Med",
-          "exit_target": "$750",
-          "stop": "$620",
-          "reasoning": "Bullish trend, RSI ~60 neutral-bullish, not extended"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~60, price above both DMAs, AI investment thesis intact"
         },
         {
           "ticker": "CRM",
           "action": "Watch",
-          "priority": "Med",
-          "exit_target": "$220",
-          "stop": "$160",
-          "reasoning": "Bearish technical state, RSI ~42, below both DMAs, monitor for recovery"
+          "priority": "High",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bearish technical state, RSI ~42, price significantly below 50DMA at ~$295"
         },
         {
           "ticker": "TSLA",
           "action": "Watch",
-          "priority": "Med",
-          "exit_target": "$450",
-          "stop": "$320",
-          "reasoning": "Mixed technical setup, price below 200DMA ~$390, RSI ~58 neutral"
+          "priority": "High",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Mixed technical state, RSI ~58, price below 200DMA at ~$390, macro uncertainty on tariffs and EV demand"
         },
         {
           "ticker": "NKE",
           "action": "Exit",
           "priority": "High",
           "exit_target": "$46.03",
-          "stop": "$40",
-          "reasoning": "Bearish/Oversold, RSI ~29, price significantly below 50DMA ~$63 and 200DMA ~$66"
+          "stop": "N/A",
+          "reasoning": "Bearish/Oversold, RSI ~29, price at $46.03 has broken significantly below 50DMA of ~$63 and 200DMA of ~$66, confirmed ma"
         },
         {
           "ticker": "UNH",
           "action": "Watch",
-          "priority": "Med",
-          "exit_target": "$400",
-          "stop": "$300",
-          "reasoning": "Bearish/Near oversold, RSI ~34, price well below both 50DMA ~$390 and 200DMA ~$440"
+          "priority": "High",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bearish/Near oversold, RSI ~34, price at $350.86 well below 50DMA of ~$390 and 200DMA of ~$440"
         },
         {
           "ticker": "GOOGL",
           "action": "Hold",
-          "priority": "Low",
-          "exit_target": "$420",
-          "stop": "$280",
-          "reasoning": "Bullish trend, RSI ~63 strong, price above DMAs"
+          "priority": "Med",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~63, price above both 50DMA and 200DMA, AI/search thesis intact"
         },
         {
           "ticker": "AMZN",
           "action": "Hold",
-          "priority": "Low",
-          "exit_target": "$320",
-          "stop": "$200",
-          "reasoning": "Bullish trend, RSI ~62 strong, price above 50DMA ~$220 and 200DMA ~$215"
+          "priority": "Med",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~62, price above both DMAs, AWS/cloud and retail growth thesis intact"
         },
         {
           "ticker": "NFLX",
           "action": "Hold",
           "priority": "Low",
-          "exit_target": "$150",
-          "stop": "$70",
-          "reasoning": "Bullish trend, RSI ~55 neutral-bullish, price well above 50DMA ~$85 and 200DMA ~$75"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~55, price above both 50DMA and 200DMA, streaming growth thesis intact"
         },
         {
           "ticker": "ASML",
           "action": "Watch",
-          "priority": "Med",
-          "exit_target": "$1100",
-          "stop": "$900",
-          "reasoning": "Bearish/Recovering, RSI ~46, price below 50DMA ~$1050 and 200DMA ~$1100"
+          "priority": "High",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bearish/Recovering, RSI ~46, price at $941.59 significantly below 50DMA of ~$1050 and 200DMA of ~$1100"
         },
         {
           "ticker": "NVDA",
           "action": "Hold",
-          "priority": "Low",
-          "exit_target": "$280",
-          "stop": "$150",
-          "reasoning": "Bullish setup, price significantly above 50DMA ~$115 and 200DMA ~$130, RSI ~49 neutral"
+          "priority": "Med",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, price significantly above 50DMA of ~$115 and 200DMA of ~$130, RSI ~49 neutral, AI GPU thesis in"
         },
         {
           "ticker": "CSPX",
           "action": "Hold",
           "priority": "Low",
-          "exit_target": "$850",
-          "stop": "$700",
-          "reasoning": "Bullish trend, RSI ~52, price near 50DMA ~$750 and above 200DMA ~$740"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~52, price above both 50DMA and 200DMA, NASDAQ-100 growth thesis intact"
         },
         {
           "ticker": "AMD",
           "action": "Watch",
           "priority": "Med",
-          "exit_target": "$320",
-          "stop": "$240",
-          "reasoning": "Mixed technical setup, RSI ~49-58 transitional, price above 200DMA ~$260"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Mixed technical state, RSI 49–58 transitional, price above 50DMA but below/near 200DMA, macro uncertainty on AI competit"
         },
         {
           "ticker": "MELI",
           "action": "Watch",
-          "priority": "Med",
-          "exit_target": "$2000",
-          "stop": "$1600",
-          "reasoning": "Bearish technical state, RSI ~44, price below 50DMA ~$1820 and 200DMA ~$1900"
+          "priority": "High",
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bearish technical state, RSI ~44, price below both 50DMA of ~$1820 and 200DMA of ~$1900, pullback from highs"
         },
         {
           "ticker": "QQQM",
           "action": "Hold",
           "priority": "Low",
-          "exit_target": "$300",
-          "stop": "$240",
-          "reasoning": "Bullish trend, RSI ~53, price above both 50DMA ~$255 and 200DMA ~$248"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~53, price above both 50DMA and 200DMA, NASDAQ-100 growth thesis intact"
         },
         {
           "ticker": "ADBE",
           "action": "Exit",
           "priority": "High",
           "exit_target": "$236.80",
-          "stop": "$200",
-          "reasoning": "Bearish technical state, RSI ~38-53 weak, price at $236.80 well below 200DMA ~$319"
+          "stop": "N/A",
+          "reasoning": "Bearish technical state, RSI 38–53 weak, price at $236.80 well below 50DMA of ~$253 and significantly below 200DMA of ~$"
         },
         {
           "ticker": "S63",
           "action": "Hold",
           "priority": "Low",
-          "exit_target": "$12.50",
-          "stop": "$10.00",
-          "reasoning": "Bullish trend, RSI ~52, price above 50DMA ~$11.10 and 200DMA ~$10.80"
+          "exit_target": "N/A",
+          "stop": "N/A",
+          "reasoning": "Bullish technical state, RSI ~52, price above both 50DMA and 200DMA, long-term thesis intact"
         }
       ]
     },
     "watchlist": {
-      "updated": "2026-04-24T05:43:31.272Z",
-      "macro": "Sturdy growth and lower inflation backdrop with Fed expected to remain on hold through 2026, though geopolitical escalation, sticky inflation re-acceleration, or AI capex ROI disappointment could trigger violent de-rotation from growth to value.",
+      "updated": "2026-04-24T05:51:16.102Z",
+      "macro": "Sturdy growth and lower inflation expected with Fed on hold through 2026, but meaningful rate risk exists from geopolitical escalation, sticky inflation re-acceleration, or AI capex ROI disappointment triggering de-rotation from growth to value.",
       "stocks": [
         {
           "ticker": "U11",
@@ -308,14 +308,14 @@
           "action": "Buy",
           "entry": "S$21.50–S$22.20",
           "target": "S$26–S$28",
-          "conviction": "Tier 1"
+          "conviction": "Tier 2"
         },
         {
           "ticker": "PFE",
           "sleeve": "LT",
           "action": "Buy",
           "entry": "See analysis",
-          "target": "See analysis",
+          "target": "$68.00",
           "conviction": "Tier 2"
         }
       ]
