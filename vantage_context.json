@@ -1,0 +1,199 @@
+{
+  "exported": "2026-04-24T06:02:35.526Z",
+  "portfolio": {
+    "updated": "2026-04-24T06:01:50.381Z",
+    "summary": "",
+    "positions": [
+      {
+        "ticker": "SNDK",
+        "action": "Trim",
+        "priority": "High",
+        "exit_target": "$979.07",
+        "stop": "$820",
+        "reasoning": "Up 45%, at all-time highs, RSI ~70.5 overbought, price 53% above 50DMA and 69% above 200DMA, operating margin negative a"
+      },
+      {
+        "ticker": "PLTR",
+        "action": "Hold",
+        "priority": "Med",
+        "exit_target": "$207.52",
+        "stop": "$120",
+        "reasoning": "Thesis intact, RSI neutral at ~51.75, trend strongly bullish, only +6.3% gain, no overbought signal"
+      },
+      {
+        "ticker": "MA",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "N/A",
+        "reasoning": "Essentially flat at +0.21%, high-quality compounder, payments duopoly thesis unimpeachable for 2–5yr horizon, no overbou"
+      },
+      {
+        "ticker": "MSFT",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$392",
+        "reasoning": "RSI approximately 71.65 at overbought threshold, only 6% above 50DMA, massive capex guidance ($110–$120B FY2026) support"
+      },
+      {
+        "ticker": "META",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "N/A",
+        "reasoning": "Bullish setup, RSI ~60, price above 50DMA and 200DMA, no overbought signal"
+      },
+      {
+        "ticker": "CRM",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$295",
+        "reasoning": "Bearish technical state, RSI ~42, price below both 50DMA (~$295) and 200DMA (~$315), requires monitoring for further det"
+      },
+      {
+        "ticker": "TSLA",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$350",
+        "reasoning": "Mixed/below 200DMA at $390, RSI ~58 neutral, technical setup ambiguous, requires monitoring"
+      },
+      {
+        "ticker": "NKE",
+        "action": "Exit",
+        "priority": "High",
+        "exit_target": "$46.03",
+        "stop": "$46.03",
+        "reasoning": "Bearish/oversold with RSI ~29, price at $46.03 has broken materially below 50DMA (~$63) and 200DMA (~$66), confirmed sev"
+      },
+      {
+        "ticker": "UNH",
+        "action": "Watch",
+        "priority": "High",
+        "exit_target": "N/A",
+        "stop": "$350",
+        "reasoning": "Bearish/near oversold with RSI ~34, price at $350.86 significantly below 50DMA (~$390) and 200DMA (~$440), potential bou"
+      },
+      {
+        "ticker": "GOOGL",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$306",
+        "reasoning": "Bullish technical state, RSI ~63, price above moving averages, no overbought signal"
+      },
+      {
+        "ticker": "AMZN",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$215",
+        "reasoning": "Bullish setup, RSI ~62, price above 50DMA (~$220) and 200DMA (~$215), no overbought signal"
+      },
+      {
+        "ticker": "NFLX",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$75",
+        "reasoning": "Bullish technical state, RSI ~55 neutral, price above 50DMA (~$85) and 200DMA (~$75), no overbought signal"
+      },
+      {
+        "ticker": "ASML",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$1050",
+        "reasoning": "Bearish/recovering, RSI ~46, price at $941.59 significantly below 50DMA (~$1050) and 200DMA (~$1100), requires monitorin"
+      },
+      {
+        "ticker": "NVDA",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$130",
+        "reasoning": "Bullish with price significantly above both 50DMA (~$115) and 200DMA (~$130), RSI ~49 neutral, no overbought signal desp"
+      },
+      {
+        "ticker": "CSPX",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$740",
+        "reasoning": "Bullish setup, RSI ~52 neutral, price above 50DMA (~$750) and 200DMA (~$740), no overbought signal"
+      },
+      {
+        "ticker": "AMD",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$260",
+        "reasoning": "Mixed technical setup, RSI ~49–58 range, price above 200DMA (~$260) but below/near 50DMA (~$210), requires clarification"
+      },
+      {
+        "ticker": "MELI",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$1820",
+        "reasoning": "Bearish technical state, RSI ~44, price at $1773.96 below 50DMA (~$1820) and 200DMA (~$1900), downtrend in place requiri"
+      },
+      {
+        "ticker": "QQQM",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$248",
+        "reasoning": "Bullish technical state, RSI ~53 neutral, price above 50DMA (~$255) and 200DMA (~$248), no overbought signal"
+      },
+      {
+        "ticker": "ADBE",
+        "action": "Watch",
+        "priority": "Med",
+        "exit_target": "N/A",
+        "stop": "$253",
+        "reasoning": "Bearish technical state, RSI ~38–53 range, price at $236.80 significantly below 200DMA (~$319), confirmed downtrend, req"
+      },
+      {
+        "ticker": "S63",
+        "action": "Hold",
+        "priority": "Low",
+        "exit_target": "N/A",
+        "stop": "$10.80",
+        "reasoning": "Bullish setup, RSI ~52 neutral, price above 50DMA (~$11.10) and 200DMA (~$10.80), no overbought signal"
+      }
+    ]
+  },
+  "watchlist": {
+    "updated": "2026-04-24T06:01:45.282Z",
+    "macro": "Sturdy growth and lower inflation backdrop with Fed on hold through 2026, but two-way rate risk from potential 2027 hikes; equity rotation from mega-cap AI into cyclicals, financials, and value expected, with main risks from geopolitical escalation, sticky inflation re-acceleration, or AI capex ROI disappointment.",
+    "stocks": [
+      {
+        "ticker": "U11",
+        "sleeve": "LT",
+        "action": "Buy",
+        "entry": "S$34.50–S$36.50",
+        "target": "S$44–S$48",
+        "conviction": "Tier 2"
+      },
+      {
+        "ticker": "O39",
+        "sleeve": "LT",
+        "action": "Buy",
+        "entry": "S$21.50–S$22.20",
+        "target": "S$26–S$28",
+        "conviction": "Tier 1"
+      },
+      {
+        "ticker": "PFE",
+        "sleeve": "LT",
+        "action": "Buy",
+        "entry": "See analysis",
+        "target": "$68.00",
+        "conviction": "Tier 2"
+      }
+    ]
+  }
+}
